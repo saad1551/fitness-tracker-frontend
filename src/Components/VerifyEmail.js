@@ -34,7 +34,7 @@ const VerifyEmail = () => {
 
         verifyEmail();
 
-    })
+    }, [navigate, verificationToken])
   return (
     <div>{isLoading &&
         <Loader />

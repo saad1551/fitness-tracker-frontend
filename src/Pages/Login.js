@@ -42,6 +42,7 @@ const Login = () => {
             setIsLoading(false);
             if (response.status === 200) {
                 toast.success(response.data.message);
+                localStorage.setItem('user', response.data.user); 
             }
             navigate('/');
         } catch (error) {
