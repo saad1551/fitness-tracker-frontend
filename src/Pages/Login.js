@@ -7,7 +7,7 @@ import Logo from '../Components/Logo';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Loader from '../Components/Loader';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const initialState = {
@@ -84,6 +84,15 @@ const Login = () => {
                 </Col>
             </Form.Group>
         </Form>
+
+        <div className="mt-3">
+                <p>
+                    Don't have an account? <Link to="/register">Register here</Link>.
+                </p>
+                <p>
+                    <Link to="/forgotpassword">Forgot Password?</Link>
+                </p>
+        </div>
     </div>
   )
 }

@@ -7,6 +7,7 @@ import Logo from '../Components/Logo';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Loader from '../Components/Loader';
+import { Link } from 'react-router-dom';
 
 
 const initialState = {
@@ -40,6 +41,8 @@ const Register = () => {
             setIsLoading(false);
             if (response.status === 201) {
                 toast.success('We have sent a link to your email. Please click on it to verify your email and activate your account');
+            } else if (response.status === 200) {
+                toast.success('We have resent a link to your email. Please click on it to verify your email and activate your account');
             }
         } catch (error) {
             setIsLoading(false);
@@ -89,6 +92,15 @@ const Register = () => {
                 </Col>
             </Form.Group>
         </Form>
+
+        <div className="mt-3">
+                <p>
+                    Already have an account? <Link to="/login">Login here</Link>.
+                </p>
+                <p>
+                    <Link to="/forgotpassword">Forgot Password?</Link>
+                </p>
+        </div>
     </div>
   )
 }
