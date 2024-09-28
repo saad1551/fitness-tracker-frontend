@@ -1,7 +1,7 @@
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import Signout from '../Components/Signout';
 import { Link } from 'react-router-dom';
+import Profile from './Profile';
 
 function Dashboard() {
   return (
@@ -20,7 +20,7 @@ function Dashboard() {
         Tab content for Progress Charts
       </Tab>
       <Tab eventKey="profile" title="Profile">
-        Tab content for Profile
+        <Profile />
       </Tab>
       <Tab eventKey="sign_out" title="Sign out">
         <Link to="/signout" style={{ textDecoration: 'none', color: 'inherit' }}>
