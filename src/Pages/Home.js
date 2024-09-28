@@ -1,8 +1,10 @@
 import React from 'react'
+import Dashboard from './Dashboard';
+import LandingPage from './LandingPage';
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div>{localStorage.getItem('user') ? <Dashboard /> : <LandingPage />}</div>
   )
 }
 

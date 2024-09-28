@@ -3,7 +3,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import './App.css';
 import Register from './Pages/Register';
-import Home from './Pages/Home';
 import VerifyEmail from './Components/VerifyEmail';
 import CompleteRegistration from './Pages/CompleteRegistration';
 import Login from './Pages/Login';
@@ -11,8 +10,8 @@ import ForgotPassword from './Pages/ForgotPassword';
 import axios from 'axios';
 import ResetPassword from './Pages/ResetPassword';
 import { useEffect } from 'react';
-import Dashboard from './Pages/Dashboard';
-import LandingPage from './Pages/LandingPage';
+import Home from './Pages/Home';
+
 
 // Set default Axios config globally
 axios.defaults.withCredentials = true;
@@ -40,7 +39,7 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" element={localStorage.getItem('user') ? <Dashboard /> : <LandingPage />} />
+          <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
