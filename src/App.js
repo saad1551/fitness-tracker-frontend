@@ -11,6 +11,7 @@ import axios from 'axios';
 import ResetPassword from './Pages/ResetPassword';
 import { useEffect } from 'react';
 import Home from './Pages/Home';
+import Signout from './Components/Signout';
 
 
 // Set default Axios config globally
@@ -42,6 +43,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signout" element={<Signout />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/resetpassword/:resetToken" element={<ResetPassword />} />
           <Route path="/verifyEmail/:verificationToken" element={<VerifyEmail />} />

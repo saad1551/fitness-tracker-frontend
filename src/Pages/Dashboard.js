@@ -1,10 +1,12 @@
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import Signout from '../Components/Signout';
+import { Link } from 'react-router-dom';
 
 function Dashboard() {
   return (
     <Tabs
-      defaultActiveKey="profile"
+      defaultActiveKey="home"
       id="uncontrolled-tab-example"
       className="mb-3"
     >
@@ -20,6 +22,12 @@ function Dashboard() {
       <Tab eventKey="profile" title="Profile">
         Tab content for Profile
       </Tab>
+      <Tab eventKey="sign_out" title="Sign out">
+        <Link to="/signout" style={{ textDecoration: 'none', color: 'inherit' }}>
+            Signout
+        </Link>
+      </Tab>
+
     </Tabs>
   );
 }
