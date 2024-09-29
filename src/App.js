@@ -35,6 +35,24 @@ function App() {
     };
 
     getLoginStatus();
+
+    const getWorkoutStatus = async() => {
+      const backendUrl = "http://localhost:5000";
+
+        try {
+            const response = await axios.get(`${backendUrl}/api/workouts/workoutstatus`);
+
+            if (response.status === 200) {
+                localStorage.setItem('workoutOngoing', response.data.workoutOngoing);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    if (localStorage.getItem('user')) {
+      getWorkoutStatus();
+    }
   });
   return (
     <Router>
