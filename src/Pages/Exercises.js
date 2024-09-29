@@ -11,6 +11,7 @@ const Exercises = () => {
     const [bodyPart, setBodyPart] = useState("back");
     const [isLoading, setIsLoading] = useState(false);
     const [bodyPartList, setBodyPartList] = useState([]);
+    const [selectedBodyPart, setSelectedBodyPart] = useState("back");
 
 //     bodyPart:"back"
 // equipment:"cable"
@@ -91,13 +92,30 @@ const Exercises = () => {
         getData();
     }, [bodyPart]);
 
+    const handleClick = (e, bodyPart) => {
+        setSelectedBodyPart(bodyPart);
+
+        setBodyPart(bodyPart);
+    };
+
   return (
     <div>
-        <ButtonGroup aria-label="Basic example">
-            {bodyPartList.map((bodyPart, index) => (
-                <Button key={index} onClick={() => setBodyPart(bodyPart)} variant="secondary">{bodyPart.toUpperCase()}</Button>
-            ))}
-        </ButtonGroup>
+            <ButtonGroup aria-label="Basic example">
+                {bodyPartList.map((part, index) => (
+                    <Button
+                        key={index}
+                        onClick={(e) => handleClick(e, part)}
+                        variant="secondary"
+                        style={{
+                            color: selectedBodyPart === part ? "blue" : "gray", // Blue when selected, gray when not
+                            backgroundColor: selectedBodyPart === part ? "lightblue" : "lightgray", // Background color change for better UX
+                            borderColor: selectedBodyPart === part ? "blue" : "gray" // Border to visually match the color
+                        }}
+                    >
+                        {part.toUpperCase()}
+                    </Button>
+                ))}
+            </ButtonGroup>
 
         {isLoading && <Loader />}
         <DataTable columns={columns} data={exerciseData} pagination/>
