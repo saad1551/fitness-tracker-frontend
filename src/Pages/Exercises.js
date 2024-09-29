@@ -5,6 +5,7 @@ import DataTable from 'react-data-table-component';
 import Loader from '../Components/Loader';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ExerciseModal from '../Components/ExerciseModal';
 
 const Exercises = () => {
     const [exerciseData, setExerciseData] = useState();
@@ -14,6 +15,8 @@ const Exercises = () => {
     const [selectedBodyPart, setSelectedBodyPart] = useState("back");
     const [search, setSearch] = useState("");
     const [filteredData, setFilteredData] = useState();
+    const [showModal, setShowModal] = useState(false);
+    const [exercise, setExercise] = useState(null);
 
 //     bodyPart:"back"
 // equipment:"cable"
@@ -45,6 +48,11 @@ const Exercises = () => {
         {
             name: 'Target',
             selector: row => row.target.toUpperCase(),
+        },
+        {
+            name: 'Instructions',
+            selector: row => row.instructions,
+            omit: true
         },
     ];
 
@@ -117,15 +125,13 @@ const Exercises = () => {
 
     const handleRowClick = (row) => {
         // Trigger some action when a row is clicked
-        toast.info(`You clicked on ${row.name}`);
+        setExercise(row);
+        setShowModal(true);
     };
-
-    const handleChange = (e) => {
-
-    }
 
   return (
     <div>
+            {showModal && <ExerciseModal handleClose={()=>setShowModal(false)} />}
             <ButtonGroup aria-label="Basic example">
                 {bodyPartList.map((part, index) => (
                     <Button
