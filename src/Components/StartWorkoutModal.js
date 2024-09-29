@@ -1,27 +1,81 @@
+import axios from 'axios';
 import React from 'react'
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { toast } from 'react-toastify';
+import Loader from './Loader';
 
 
-const StartWorkoutModal = ({ handleClose }) => {
+const StartWorkoutModal = ({ handleClose, exercise, closeModals }) => {
     const [show, setShow] = useState(true);
+
+    const [workoutName, setWorkoutName] = useState(""); // State variable for workout name
+
+    const [isLoading, setIsLoading] = useState(false);
+
+    // Handle change for workout name input
+    const handleWorkoutNameChange = (e) => {
+        setWorkoutName(e.target.value);
+    };
+    
+    const handleStart = async() => {
+        const backendUrl = "http://localhost:5000";
+
+        try {
+            setIsLoading(true);
+            const response = await axios.post(`${backendUrl}/api/workouts/startworkout`, {workout_name: workoutName});
+            if (response.status === 201) {
+                const res = await axios.post(`${backendUrl}/api/workouts/startexercise`, {
+                    workout_id: response.data.id,
+                    exerciseName: exercise.name,
+                    image: exercise.gifUrl
+                });
+
+                setIsLoading(false);
+
+                if (res.status === 201) {
+                    toast.success("Workout started successfully");
+                }
+
+                closeModals();
+            }
+
+        } catch (error) {
+            setIsLoading(false);
+            toast.error(error);
+        }
+    };
+
+
 
   
     return (
       <>
-  
+        {isLoading && <Loader />}
         <Modal show={show} onHide={handleClose} animation={false}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Start Workout with {exercise.name} ?</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+          <Modal.Body>
+          <div>
+                        <label htmlFor="workoutName">Workout Name:</label>
+                        <input
+                            type="text"
+                            id="workoutName"
+                            value={workoutName}
+                            onChange={handleWorkoutNameChange}
+                            placeholder="Enter workout name"
+                            style={{ width: '100%', marginTop: '10px' }} // Optional styling
+                        />
+                    </div>
+          </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleClose}>
-              Save Changes
+            <Button variant="primary" onClick={handleStart}>
+              Start Workout
             </Button>
           </Modal.Footer>
         </Modal>

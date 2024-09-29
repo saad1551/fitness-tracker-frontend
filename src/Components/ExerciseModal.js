@@ -23,7 +23,7 @@ const ExerciseModal = ({ handleClose, exercise }) => {
 
   return (
     <div>
-        {showStartWorkoutModal && <StartWorkoutModal handleClose={() => setShowStartWorkoutModal(false)} />}
+        {showStartWorkoutModal && <StartWorkoutModal exercise={exercise} closeModals={()=>handleClose()} handleClose={() => setShowStartWorkoutModal(false)} />}
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
           <Modal.Title>{exercise.name.toUpperCase()}</Modal.Title>
