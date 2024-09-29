@@ -131,7 +131,7 @@ const Exercises = () => {
 
   return (
     <div>
-            {showModal && <ExerciseModal handleClose={()=>setShowModal(false)} />}
+            {showModal && <ExerciseModal exercise={exercise} handleClose={()=>setShowModal(false)} />}
             <ButtonGroup aria-label="Basic example">
                 {bodyPartList.map((part, index) => (
                     <Button

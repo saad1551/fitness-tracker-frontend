@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 
 
 
-const ExerciseModal = ({ handleClose }) => {
+const ExerciseModal = ({ handleClose, exercise }) => {
     const [show, setShow] = useState(true);
 
     const handleShow = () => setShow(true);
@@ -15,15 +15,20 @@ const ExerciseModal = ({ handleClose }) => {
 
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>{exercise.name.toUpperCase()}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+        <Modal.Body style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+            <img width="200px" height="200px" src={exercise.gifUrl} alt="demonstration" />
+            {exercise.instructions.map((instruction, index) => (
+                <p key={index}>{instruction}</p>
+            ))}
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
           <Button variant="primary" onClick={handleClose}>
-            Save Changes
+            Start Exercise
           </Button>
         </Modal.Footer>
       </Modal>
