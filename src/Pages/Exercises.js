@@ -92,10 +92,15 @@ const Exercises = () => {
         getData();
     }, [bodyPart]);
 
-    const handleClick = (e, bodyPart) => {
+    const handleToggle = (e, bodyPart) => {
         setSelectedBodyPart(bodyPart);
 
         setBodyPart(bodyPart);
+    };
+
+    const handleRowClick = (row) => {
+        // Trigger some action when a row is clicked
+        toast.info(`You clicked on ${row.name}`);
     };
 
   return (
@@ -104,7 +109,7 @@ const Exercises = () => {
                 {bodyPartList.map((part, index) => (
                     <Button
                         key={index}
-                        onClick={(e) => handleClick(e, part)}
+                        onClick={(e) => handleToggle(e, part)}
                         variant="secondary"
                         style={{
                             color: selectedBodyPart === part ? "blue" : "gray", // Blue when selected, gray when not
@@ -118,7 +123,11 @@ const Exercises = () => {
             </ButtonGroup>
 
         {isLoading && <Loader />}
-        <DataTable columns={columns} data={exerciseData} pagination/>
+        <DataTable columns={columns} data={exerciseData} pagination
+                        highlightOnHover
+                        pointerOnHover // Changes cursor to pointer on hover
+                        onRowClicked={handleRowClick} // Make rows clickable
+        />
     </div>
   )
 }
