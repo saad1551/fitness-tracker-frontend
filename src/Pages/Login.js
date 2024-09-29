@@ -8,6 +8,8 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import Loader from '../Components/Loader';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../slices/userSlice';
 
 
 const initialState = {
@@ -20,6 +22,8 @@ const Login = () => {
 
     const [isLoading, setIsLoading] = useState(false);
 
+    const dispatch = useDispatch();
+
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -30,27 +34,19 @@ const Login = () => {
         });
     };
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData);
-
-        const backendUrl = "http://localhost:5000";
-
         try {
-            setIsLoading(true);
-            const response = await axios.post(`${backendUrl}/api/users/login`, formData);
-            setIsLoading(false);
-            if (response.status === 200) {
-                toast.success(response.data.message);
-                localStorage.setItem('user', response.data.user); 
+            const result = await dispatch(loginUser(formData));
+            if (loginUser.fulfilled.match(result)) {
+                toast.success("Login successful!");
+                navigate('/');
+            } else {
+                toast.error(result.payload);
             }
-            navigate('/');
-        } catch (error) {
-            setIsLoading(false);
-            toast.error(error.response.data.message);
+        } catch (err) {
+            toast.error("Login failed.");
         }
-
-        setFormData(initialState);
     };
 
 

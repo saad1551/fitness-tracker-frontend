@@ -12,48 +12,28 @@ import ResetPassword from './Pages/ResetPassword';
 import { useEffect } from 'react';
 import Home from './Pages/Home';
 import Signout from './Components/Signout';
+import { fetchLoginStatus } from './slices/userSlice';  // Import actions
+import { fetchWorkoutStatus } from './slices/workoutSlice'; // Import actions
+import { useDispatch, useSelector } from 'react-redux';
+
 
 
 // Set default Axios config globally
 axios.defaults.withCredentials = true;
 
 function App() {
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(state => state.user.isLoggedIn); // Use the logged-in state
+
   useEffect(() => {
-    const getLoginStatus = async() => {
-      const backendUrl = "http://localhost:5000";
+    dispatch(fetchLoginStatus());  // Fetch login status
+  }, [dispatch]);
 
-      const response = await axios.get(`${backendUrl}/api/users/loggedin`);
-
-      if (response.data.loggedIn === true) {
-        localStorage.setItem('user', response.data.user);
-        console.log("Logged in");
-      }
-
-      else {
-        console.log("Not logged in");
-      }
-    };
-
-    getLoginStatus();
-
-    const getWorkoutStatus = async() => {
-      const backendUrl = "http://localhost:5000";
-
-        try {
-            const response = await axios.get(`${backendUrl}/api/workouts/workoutstatus`);
-
-            if (response.status === 200) {
-                localStorage.setItem('workoutOngoing', response.data.workoutOngoing);
-            }
-        } catch (error) {
-            console.log(error);
-        }
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(fetchWorkoutStatus()); // Fetch workout status only if user is logged in
     }
-
-    if (localStorage.getItem('user')) {
-      getWorkoutStatus();
-    }
-  });
+  }, [dispatch, isLoggedIn]);
   return (
     <Router>
       <div className="App">

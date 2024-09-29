@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
 import StartWorkoutModal from './StartWorkoutModal';
+import { useSelector } from 'react-redux';
 
 
 
@@ -13,8 +14,11 @@ const ExerciseModal = ({ handleClose, exercise }) => {
 
     const [showStartWorkoutModal, setShowStartWorkoutModal] = useState(false);
 
+    // Get workoutOngoing state from Redux store
+    const workoutOngoing = useSelector((state) => state.workout.workoutOngoing);
+
     const handleStart = (req, res) => {
-        if (localStorage.getItem('workoutOngoing') === true) {
+        if (workoutOngoing) {
 
         } else {
             setShowStartWorkoutModal(true);

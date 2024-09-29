@@ -5,6 +5,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
 import Loader from './Loader';
+import { useDispatch } from 'react-redux';
+import { setWorkoutId, setWorkoutStatus } from '../slices/workoutSlice';
 
 
 const StartWorkoutModal = ({ handleClose, exercise, closeModals }) => {
@@ -14,37 +16,40 @@ const StartWorkoutModal = ({ handleClose, exercise, closeModals }) => {
 
     const [isLoading, setIsLoading] = useState(false);
 
+    const dispatch = useDispatch();
+
     // Handle change for workout name input
     const handleWorkoutNameChange = (e) => {
         setWorkoutName(e.target.value);
     };
     
-    const handleStart = async() => {
+    const handleStart = async () => {
         const backendUrl = "http://localhost:5000";
 
         try {
             setIsLoading(true);
-            const response = await axios.post(`${backendUrl}/api/workouts/startworkout`, {workout_name: workoutName});
+            const response = await axios.post(`${backendUrl}/api/workouts/startworkout`, { workout_name: workoutName });
             if (response.status === 201) {
                 const res = await axios.post(`${backendUrl}/api/workouts/startexercise`, {
                     workout_id: response.data.id,
                     exerciseName: exercise.name,
-                    image: exercise.gifUrl
+                    image: exercise.gifUrl,
                 });
 
                 setIsLoading(false);
 
                 if (res.status === 201) {
                     toast.success("Workout started successfully");
-                    localStorage.setItem('workoutId', response.data.id);
+                    // Dispatch actions to update the Redux state
+                    dispatch(setWorkoutId(response.data.id));
+                    dispatch(setWorkoutStatus(true));
                 }
 
                 closeModals();
             }
-
         } catch (error) {
             setIsLoading(false);
-            toast.error(error);
+            toast.error(error.response ? error.response.data.message : "Error starting workout");
         }
     };
 

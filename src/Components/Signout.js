@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux'; // Import useDispatch
 import Loader from './Loader';
+import { clearUser } from '../slices/userSlice'; // Import the action to clear the user state
 
 const Signout = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
+    const dispatch = useDispatch(); // Initialize useDispatch to dispatch actions
 
     useEffect(() => {
         const signout = async () => {
@@ -19,7 +22,7 @@ const Signout = () => {
 
                 if (response.status === 200) {
                     toast.success(response.data.message);
-                    localStorage.removeItem('user');
+                    dispatch(clearUser()); // Dispatch the action to clear user state
                     navigate('/'); // Redirect to the landing page (home page)
                 }
 
@@ -32,7 +35,7 @@ const Signout = () => {
 
         signout();
 
-    }, [navigate]);
+    }, [navigate, dispatch]);
 
     return (
         <div>
