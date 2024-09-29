@@ -12,6 +12,8 @@ const Exercises = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [bodyPartList, setBodyPartList] = useState([]);
     const [selectedBodyPart, setSelectedBodyPart] = useState("back");
+    const [search, setSearch] = useState("");
+    const [filteredData, setFilteredData] = useState();
 
 //     bodyPart:"back"
 // equipment:"cable"
@@ -83,6 +85,7 @@ const Exercises = () => {
                 });
                 setIsLoading(false);
                 setExerciseData(response.data);
+                setFilteredData(response.data);
             } catch (error) {
                 toast.error(error.response.data.message);
                 setIsLoading(false);
@@ -90,7 +93,21 @@ const Exercises = () => {
         };
 
         getData();
+
+        setSearch("");
     }, [bodyPart]);
+
+    // Filter data based on the search query and body part
+    useEffect(() => {
+        const result = exerciseData?.filter((exercise) => {
+            return (
+                exercise.name.toLowerCase().includes(search.toLowerCase()) ||
+                exercise.equipment.toLowerCase().includes(search.toLowerCase()) ||
+                exercise.target.toLowerCase().includes(search.toLowerCase())
+            );
+        });
+        setFilteredData(result);
+    }, [search, exerciseData]);
 
     const handleToggle = (e, bodyPart) => {
         setSelectedBodyPart(bodyPart);
@@ -102,6 +119,10 @@ const Exercises = () => {
         // Trigger some action when a row is clicked
         toast.info(`You clicked on ${row.name}`);
     };
+
+    const handleChange = (e) => {
+
+    }
 
   return (
     <div>
@@ -122,12 +143,20 @@ const Exercises = () => {
                 ))}
             </ButtonGroup>
 
-        {isLoading && <Loader />}
-        <DataTable columns={columns} data={exerciseData} pagination
-                        highlightOnHover
-                        pointerOnHover // Changes cursor to pointer on hover
-                        onRowClicked={handleRowClick} // Make rows clickable
-        />
+            <input
+                type="text"
+                placeholder="Search exercises..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)} // Update search state
+                style={{ marginBottom: '20px', padding: '10px', width: '100%' }}
+            />
+
+            {isLoading && <Loader />}
+            <DataTable columns={columns} data={filteredData} pagination
+                            highlightOnHover
+                            pointerOnHover // Changes cursor to pointer on hover
+                            onRowClicked={handleRowClick} // Make rows clickable
+            />
     </div>
   )
 }
