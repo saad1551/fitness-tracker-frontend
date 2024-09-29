@@ -5,24 +5,20 @@ import Profile from './Profile';
 import Exercises from './Exercises';
 import Workout from './Workout';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchWorkoutStatus } from '../slices/workoutSlice';
 
 function Dashboard() {
-    // State to track whether a workout is ongoing
-    const [workoutOngoing, setWorkoutOngoing] = useState(false);
-    const [workoutId, setWorkoutId] = useState(null);
+  const dispatch = useDispatch();
   
-    useEffect(() => {
-      // Get the workout status from localStorage when the component mounts
-      const ongoing = localStorage.getItem('workoutOngoing');
-      const id = localStorage.getItem('workoutId');
+  // Accessing workout status and ID from Redux store
+  const workoutOngoing = useSelector((state) => state.workout.workoutOngoing);
+  const workoutId = useSelector((state) => state.workout.workoutId);
   
-      if (ongoing && id) {
-        setWorkoutOngoing(true);
-        setWorkoutId(id);
-      } else {
-        setWorkoutOngoing(false);
-      }
-    }, []); // This runs only once on component mount
+  useEffect(() => {
+    // Fetch workout status from the server
+    dispatch(fetchWorkoutStatus());
+  }, [dispatch]); // This runs only once on component mount
 
   return (
     <Tabs
