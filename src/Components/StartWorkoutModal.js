@@ -36,6 +36,7 @@ const StartWorkoutModal = ({ handleClose, exercise, closeModals }) => {
 
                 if (res.status === 201) {
                     toast.success("Workout started successfully");
+                    localStorage.setItem('workoutId', response.data.id);
                 }
 
                 closeModals();
