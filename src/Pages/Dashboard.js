@@ -2,6 +2,7 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { Link } from 'react-router-dom';
 import Profile from './Profile';
+import Exercises from './Exercises';
 
 function Dashboard() {
   return (
@@ -11,7 +12,7 @@ function Dashboard() {
       className="mb-3"
     >
       <Tab eventKey="home" title="Home">
-        Tab content for Home
+        <Exercises />
       </Tab>
       <Tab eventKey="workout_history" title="Workout History">
         Tab content for Workout History
