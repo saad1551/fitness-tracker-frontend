@@ -1,13 +1,15 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { toast } from 'react-toastify';
+import WorkoutHistoryDetail from './WorkoutHistoryDetail'; // Import the detail component
 
 const WorkoutHistory = () => {
     const [workoutHistory, setWorkoutHistory] = useState([]);
+    const [selectedWorkout, setSelectedWorkout] = useState(null); // State to manage selected workout
 
     useEffect(() => {
-        const getWorkoutsData = async() => {
+        const getWorkoutsData = async () => {
             const backendUrl = "http://localhost:5000";
 
             try {
@@ -21,8 +23,9 @@ const WorkoutHistory = () => {
         };
 
         getWorkoutsData();
-    });
+    }, []); // Add empty dependency array to avoid continuous calls
 
+    // Columns for the DataTable
     const columns = [
         {
             name: 'Name',
@@ -34,23 +37,39 @@ const WorkoutHistory = () => {
         },
         {
             name: 'Date',
-            selector: row => row.date.toLocaleString(),
+            selector: row => new Date(row.date).toLocaleString(), // Format the date properly
         }
     ];
 
-    const handleWorkoutClick = () => {
+    // Handle row click and select workout
+    const handleWorkoutClick = (row) => {
+        setSelectedWorkout(row); // Set selected workout data to pass as prop
+    };
 
-    }
-  return (
-    <div>
-            <h2>Workout History</h2>
-            <DataTable columns={columns} data={workoutHistory} pagination
-                    highlightOnHover
-                    pointerOnHover // Changes cursor to pointer on hover
-                    onRowClicked={handleWorkoutClick} // Make rows clickable
+    // If a workout is selected, render WorkoutHistoryDetail
+    if (selectedWorkout) {
+        return (
+            <WorkoutHistoryDetail 
+                workout={selectedWorkout} 
+                onBack={() => setSelectedWorkout(null)} // Pass a callback to unmount and go back
             />
-    </div>
-  )
-}
+        );
+    }
 
-export default WorkoutHistory
+    // Render the workout history table
+    return (
+        <div>
+            <h2>Workout History</h2>
+            <DataTable 
+                columns={columns} 
+                data={workoutHistory} 
+                pagination
+                highlightOnHover
+                pointerOnHover
+                onRowClicked={handleWorkoutClick} // Make rows clickable
+            />
+        </div>
+    );
+};
+
+export default WorkoutHistory;
