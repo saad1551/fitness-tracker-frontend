@@ -65,7 +65,7 @@ const Exercises = () => {
                 const response = await axios.get(url, {
                     headers: {
                         'x-rapidapi-host': 'exercisedb.p.rapidapi.com',
-                        'x-rapidapi-key': '4683bdcec5msh3e8caf97e9fada0p1adcc0jsndaff4c98ce88'
+                        'x-rapidapi-key': '010aec65ddmshbbb02c55acb6d90p12d89bjsn9a73a2361c40'
                     }
                 });
                 setIsLoading(false);
@@ -88,7 +88,7 @@ const Exercises = () => {
                 const response = await axios.get(`${url}/${bodyPart}?limit=500&offset=0`, {
                     headers: {
                         'x-rapidapi-host': 'exercisedb.p.rapidapi.com',
-                        'x-rapidapi-key': '4683bdcec5msh3e8caf97e9fada0p1adcc0jsndaff4c98ce88'
+                        'x-rapidapi-key': '010aec65ddmshbbb02c55acb6d90p12d89bjsn9a73a2361c40'
                     }
                 });
                 setIsLoading(false);
