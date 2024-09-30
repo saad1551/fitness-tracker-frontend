@@ -7,6 +7,7 @@ import Workout from './Workout';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchWorkoutStatus } from '../slices/workoutSlice';
+import WorkoutHistory from './WorkoutHistory';
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ function Dashboard() {
         {!workoutOngoing ? <Exercises /> : <Workout workoutId={workoutId} />}
       </Tab>
       <Tab eventKey="workout_history" title="Workout History">
-        Tab content for Workout History
+        <WorkoutHistory />
       </Tab>
       <Tab eventKey="progress_charts" title="Progress Charts">
         Tab content for Progress Charts
