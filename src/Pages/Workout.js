@@ -19,6 +19,9 @@ const Workout = ({ workoutId }) => {
     const [showStartSetModal, setShowStartSetModal] = useState(false);
     const [selectedExercise, setSelectedExercise] = useState(null);
 
+    // State for handling stop workout confirmation
+    const [showStopWorkoutConfirmation, setShowStopWorkoutConfirmation] = useState(false);
+
     const setOngoing = useSelector((state) => state.workout.setOngoing);
     const onGoingExercise = useSelector((state) => state.workout.onGoingExercise);
 
@@ -84,7 +87,7 @@ const Workout = ({ workoutId }) => {
                     setExercises(response.data.exercises);
                 }
             } catch (error) {
-                toast.error(error);
+                toast.error(error.message);
                 setIsLoading(false);
             }
         };
@@ -109,6 +112,26 @@ const Workout = ({ workoutId }) => {
         localStorage.removeItem('setOngoing'); // Clear set status in localStorage
         localStorage.removeItem('timerMinutes');
         localStorage.removeItem('timerSeconds');
+    };
+
+    // Handle stop workout button click with confirmation
+    const handleStopWorkoutClick = () => {
+        setShowStopWorkoutConfirmation(true); // Show confirmation dialog
+    };
+
+    // Handle the user confirmation to stop the workout
+    const confirmStopWorkout = async () => {
+        try {
+            const backendUrl = "http://localhost:5000"; // Replace with your actual backend URL
+            const response = await axios.post(`${backendUrl}/api/workouts/stopworkout`, {workout_id: workoutId});
+
+            if (response.status === 200) {
+                toast.success('Workout stopped successfully');
+                setShowStopWorkoutConfirmation(false);
+            }
+        } catch (error) {
+            toast.error(`Failed to stop workout: ${error.message}`);
+        }
     };
 
     return (
@@ -144,6 +167,22 @@ const Workout = ({ workoutId }) => {
                 pointerOnHover // Changes cursor to pointer on hover
                 onRowClicked={handleExerciseClick} // Make rows clickable
             />
+
+            {/* Button to stop the workout */}
+            <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                <button onClick={handleStopWorkoutClick} className="btn btn-danger">
+                    Stop Workout
+                </button>
+            </div>
+
+            {/* Confirmation to stop the workout */}
+            {showStopWorkoutConfirmation && (
+                <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                    <p>Are you sure you want to stop the workout?</p>
+                    <button onClick={confirmStopWorkout} className="btn btn-primary">Yes</button>
+                    <button onClick={() => setShowStopWorkoutConfirmation(false)} className="btn btn-secondary">No</button>
+                </div>
+            )}
         </div>
     );
 };

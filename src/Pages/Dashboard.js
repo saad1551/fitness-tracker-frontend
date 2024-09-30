@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Profile from './Profile';
 import Exercises from './Exercises';
 import Workout from './Workout';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchWorkoutStatus } from '../slices/workoutSlice';
 
