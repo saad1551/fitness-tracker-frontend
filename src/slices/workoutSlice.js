@@ -4,6 +4,8 @@ import axios from 'axios';
 
 const initialState = {
   workoutOngoing: false,
+  setOngoing: false,
+  onGoingExercise: null,
   workoutId: null, // Add workoutId to the initial state
 };
 
@@ -24,10 +26,16 @@ const workoutSlice = createSlice({
     clearWorkoutId: (state) => {
       state.workoutId = null; // Clear the workout ID
     },
+    setSetStatus: (state, action) => {
+        state.setOngoing = action.payload;
+    },
+    setOngoingExerciseId: (state, action) => {
+        state.onGoingExercise = action.payload;
+    }
   },
 });
 
-export const { setWorkoutStatus, clearWorkoutStatus, setWorkoutId, clearWorkoutId } = workoutSlice.actions;
+export const { setWorkoutStatus, clearWorkoutStatus, setWorkoutId, clearWorkoutId, setSetStatus, setOngoingExercise } = workoutSlice.actions;
 
 // Thunk to get workout status
 export const fetchWorkoutStatus = () => async (dispatch) => {

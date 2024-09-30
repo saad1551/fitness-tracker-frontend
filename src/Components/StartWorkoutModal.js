@@ -6,7 +6,7 @@ import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
 import Loader from './Loader';
 import { useDispatch } from 'react-redux';
-import { setWorkoutId, setWorkoutStatus } from '../slices/workoutSlice';
+import { setOngoingExercise, setSetStatus, setWorkoutId, setWorkoutStatus } from '../slices/workoutSlice';
 
 
 const StartWorkoutModal = ({ handleClose, exercise, closeModals }) => {
@@ -42,7 +42,12 @@ const StartWorkoutModal = ({ handleClose, exercise, closeModals }) => {
                     toast.success("Workout started successfully");
                     // Dispatch actions to update the Redux state
                     dispatch(setWorkoutId(response.data.id));
+                    localStorage.setItem('ongoingWorkoutId', response.data.id);
+                    localStorage.setItem('ongoingExerciseId', res.data.exercise.id);
+                    localStorage.setItem('ongoingExerciseName', res.data.exercise.name);
                     dispatch(setWorkoutStatus(true));
+                    dispatch(setSetStatus(true));
+                    dispatch(setOngoingExercise(res.data.exercise));
                 }
 
                 closeModals();

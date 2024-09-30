@@ -4,7 +4,6 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Logo from '../Components/Logo';
-import axios from 'axios';
 import { toast } from 'react-toastify';
 import Loader from '../Components/Loader';
 import { Link, useNavigate } from 'react-router-dom';

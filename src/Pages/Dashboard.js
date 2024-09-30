@@ -13,7 +13,7 @@ function Dashboard() {
   
   // Accessing workout status and ID from Redux store
   const workoutOngoing = useSelector((state) => state.workout.workoutOngoing);
-  const workoutId = useSelector((state) => state.workout.workoutId);
+  const workoutId = localStorage.getItem('ongoingWorkoutId');
   
   useEffect(() => {
     // Fetch workout status from the server
