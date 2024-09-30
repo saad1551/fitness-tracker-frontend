@@ -29,7 +29,7 @@ const workoutSlice = createSlice({
     setSetStatus: (state, action) => {
         state.setOngoing = action.payload;
     },
-    setOngoingExerciseId: (state, action) => {
+    setOngoingExercise: (state, action) => {
         state.onGoingExercise = action.payload;
     }
   },

@@ -7,12 +7,17 @@ import { useStopwatch } from 'react-timer-hook';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSetStatus } from '../slices/workoutSlice';
 import LogSetModal from '../Components/LogSetModal';
+import StartSetModal from '../Components/StartSetModal'; // Import StartSetModal
 
 const Workout = ({ workoutId }) => {
     const [workoutName, setWorkoutName] = useState("");
     const [exercises, setExercises] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [showLogSetModal, setShowLogSetModal] = useState(false);
+    
+    // New state for opening StartSetModal
+    const [showStartSetModal, setShowStartSetModal] = useState(false);
+    const [selectedExercise, setSelectedExercise] = useState(null);
 
     const setOngoing = useSelector((state) => state.workout.setOngoing);
     const onGoingExercise = useSelector((state) => state.workout.onGoingExercise);
@@ -48,6 +53,11 @@ const Workout = ({ workoutId }) => {
 
     const columns = [
         {
+            name: 'id',
+            selector: row => row.id,
+            omit: true
+        },
+        {
             name: 'Name',
             selector: row => row.name.toUpperCase(),
         },
@@ -82,6 +92,15 @@ const Workout = ({ workoutId }) => {
         getWorkoutDetails();
     }, [workoutId]);
 
+    // Handle clicking on an exercise
+    const handleExerciseClick = (exercise) => {
+        if (!setOngoing) {
+            setSelectedExercise(exercise); // Set the clicked exercise
+            setShowStartSetModal(true); // Open StartSetModal
+        }
+        console.log(exercise);
+    };
+
     const handleStop = () => {
         dispatch(setSetStatus(false));
         setShowLogSetModal(true);
@@ -92,14 +111,19 @@ const Workout = ({ workoutId }) => {
         localStorage.removeItem('timerSeconds');
     };
 
-    const handleExerciseClick = () => {
-        // Handle exercise click event (optional)
-    };
-
     return (
         <div>
             {isLoading && <Loader />}
             {showLogSetModal && <LogSetModal minutes={minutes} seconds={seconds} />}
+            
+            {/* Show StartSetModal when a set is not ongoing */}
+            {showStartSetModal && selectedExercise && (
+                <StartSetModal 
+                    exercise={selectedExercise}
+                    handleClose={() => setShowStartSetModal(false)} 
+                />
+            )}
+
             {setOngoing && 
             <div style={{ textAlign: 'center' }}>
                 <h3>{onGoingExercise?.name}</h3>
@@ -111,6 +135,7 @@ const Workout = ({ workoutId }) => {
                 <button onClick={pause} disabled={!isRunning}>Pause</button>
                 <button onClick={handleStop}>Stop</button>
             </div>}
+            
             <h3>{workoutName}</h3>
             <DataTable 
                 columns={columns} 
