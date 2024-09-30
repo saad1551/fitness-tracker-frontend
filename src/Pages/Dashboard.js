@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchWorkoutStatus } from '../slices/workoutSlice';
 import WorkoutHistory from './WorkoutHistory';
+import ProgressCharts from './ProgressCharts';
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ function Dashboard() {
         <WorkoutHistory />
       </Tab>
       <Tab eventKey="progress_charts" title="Progress Charts">
-        Tab content for Progress Charts
+        <ProgressCharts />
       </Tab>
       <Tab eventKey="profile" title="Profile">
         <Profile />

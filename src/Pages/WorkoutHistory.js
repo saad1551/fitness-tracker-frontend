@@ -43,7 +43,7 @@ const WorkoutHistory = () => {
     }
   return (
     <div>
-            Workout History
+            <h2>Workout History</h2>
             <DataTable columns={columns} data={workoutHistory} pagination
                     highlightOnHover
                     pointerOnHover // Changes cursor to pointer on hover
