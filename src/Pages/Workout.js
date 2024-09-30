@@ -8,23 +8,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSetStatus } from '../slices/workoutSlice';
 import LogSetModal from '../Components/LogSetModal';
 import StartSetModal from '../Components/StartSetModal'; // Import StartSetModal
+import Exercises from './Exercises'; // Import Exercises for the modal
+import Modal from 'react-bootstrap/Modal'; // Import Modal from Bootstrap
+import ExercisesModal from '../Components/ExercisesModal';
 
 const Workout = ({ workoutId }) => {
     const [workoutName, setWorkoutName] = useState("");
     const [exercises, setExercises] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [showLogSetModal, setShowLogSetModal] = useState(false);
-    
-    // New state for opening StartSetModal
     const [showStartSetModal, setShowStartSetModal] = useState(false);
     const [selectedExercise, setSelectedExercise] = useState(null);
-
-    // State for handling stop workout confirmation
     const [showStopWorkoutConfirmation, setShowStopWorkoutConfirmation] = useState(false);
+    
+    // New state for managing the Exercises modal
+    const [showExercisesModal, setShowExercisesModal] = useState(false);
 
     const setOngoing = useSelector((state) => state.workout.setOngoing);
     const onGoingExercise = useSelector((state) => state.workout.onGoingExercise);
-
+    
     const dispatch = useDispatch();
 
     // Stopwatch hook
@@ -123,7 +125,7 @@ const Workout = ({ workoutId }) => {
     const confirmStopWorkout = async () => {
         try {
             const backendUrl = "http://localhost:5000"; // Replace with your actual backend URL
-            const response = await axios.post(`${backendUrl}/api/workouts/stopworkout`, {workout_id: workoutId});
+            const response = await axios.post(`${backendUrl}/api/workouts/stopworkout`, { workout_id: workoutId });
 
             if (response.status === 200) {
                 toast.success('Workout stopped successfully');
@@ -132,6 +134,16 @@ const Workout = ({ workoutId }) => {
         } catch (error) {
             toast.error(`Failed to stop workout: ${error.message}`);
         }
+    };
+
+    // Handle opening the Exercises modal
+    const handleOpenExercisesModal = () => {
+        setShowExercisesModal(true);
+    };
+
+    // Handle closing the Exercises modal
+    const handleCloseExercisesModal = () => {
+        setShowExercisesModal(false);
     };
 
     return (
@@ -167,6 +179,16 @@ const Workout = ({ workoutId }) => {
                 pointerOnHover // Changes cursor to pointer on hover
                 onRowClicked={handleExerciseClick} // Make rows clickable
             />
+
+            {/* Button to open the Exercises modal */}
+            <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                <button onClick={handleOpenExercisesModal} className="btn btn-primary">
+                    +
+                </button>
+            </div>
+
+            {/* Modal for selecting exercises */}
+            {showExercisesModal && <ExercisesModal handleClose={() => setShowExercisesModal(false)} />}
 
             {/* Button to stop the workout */}
             <div style={{ textAlign: 'center', marginTop: '20px' }}>
