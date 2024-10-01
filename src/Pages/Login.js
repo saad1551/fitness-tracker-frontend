@@ -36,7 +36,9 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            setIsLoading(true);
             const result = await dispatch(loginUser(formData));
+            setIsLoading(false);
             if (loginUser.fulfilled.match(result)) {
                 toast.success("Login successful!");
                 navigate('/');
