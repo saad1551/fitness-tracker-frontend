@@ -158,6 +158,7 @@ const Exercises = () => {
                 highlightOnHover
                 pointerOnHover
                 responsive
+                onRowClicked={handleRowClick}
             />
         </div>
     );
