@@ -35,7 +35,7 @@ const CompleteRegistration = () => {
         e.preventDefault();
         console.log(formData);
 
-        const backendUrl = "http://localhost:5000";
+        const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
         try {
             setIsLoading(true);
