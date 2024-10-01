@@ -6,27 +6,31 @@ import Loader from '../Components/Loader';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ExerciseModal from '../Components/ExerciseModal';
-import './Exercises.css'; // Import CSS for responsive design
+import { useMediaQuery } from 'react-responsive';
+import './Exercises.css'; // Import the CSS file for responsiveness
 
 const Exercises = () => {
-    const [exerciseData, setExerciseData] = useState();
+    const [exerciseData, setExerciseData] = useState([]);
     const [bodyPart, setBodyPart] = useState("back");
     const [isLoading, setIsLoading] = useState(false);
     const [bodyPartList, setBodyPartList] = useState([]);
     const [selectedBodyPart, setSelectedBodyPart] = useState("back");
     const [search, setSearch] = useState("");
-    const [filteredData, setFilteredData] = useState();
+    const [filteredData, setFilteredData] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [exercise, setExercise] = useState(null);
+
+    // Media query to detect mobile view
+    const isMobileView = useMediaQuery({ query: '(max-width: 768px)' });
 
     const columns = [
         {
             name: 'Name',
             selector: row => row.name.toUpperCase(),
             sortable: true,
-            wrap: true,  // Wrap text for better responsiveness
+            wrap: true,
         },
-        {
+        !isMobileView && {
             name: 'Body Part',
             selector: row => row.bodyPart.toUpperCase(),
             sortable: true,
@@ -39,29 +43,29 @@ const Exercises = () => {
             wrap: true,
         },
         {
-            name: 'Image',
-            cell: row => <img src={row.gifUrl} alt="gif" className="data-table-image" />,
-            ignoreRowClick: true, // Prevents click on image
-            sortable: false,
-        },
-        {
             name: 'Target',
             selector: row => row.target.toUpperCase(),
             sortable: true,
             wrap: true,
         },
-    ];
+        {
+            name: 'Image',
+            cell: row => <img src={row.gifUrl} alt="gif" className="data-table-image" />,
+            ignoreRowClick: true,
+            sortable: false,
+            maxWidth: "150px",
+        },
+    ].filter(Boolean); // Filters out undefined columns (in this case, "Body Part" on mobile)
 
-    useEffect(() => {        
-        const getBodyParts = async() => {
+    useEffect(() => {
+        const getBodyParts = async () => {
             const url = "https://exercisedb.p.rapidapi.com/exercises/bodyPartList";
-
             try {
                 setIsLoading(true);
                 const response = await axios.get(url, {
                     headers: {
                         'x-rapidapi-host': 'exercisedb.p.rapidapi.com',
-                        'x-rapidapi-key': 'sdfqfd'
+                        'x-rapidapi-key': 'api-key'
                     }
                 });
                 setIsLoading(false);
@@ -71,20 +75,18 @@ const Exercises = () => {
                 setIsLoading(false);
             }
         };
-
         getBodyParts();
     }, []);
 
-    useEffect(() => {        
-        const getData = async() => {
-            const url = "https://exercisedb.p.rapidapi.com/exercises/bodyPart";
-
+    useEffect(() => {
+        const getData = async () => {
+            const url = `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}?limit=500&offset=0`;
             try {
                 setIsLoading(true);
-                const response = await axios.get(`${url}/${bodyPart}?limit=500&offset=0`, {
+                const response = await axios.get(url, {
                     headers: {
                         'x-rapidapi-host': 'exercisedb.p.rapidapi.com',
-                        'x-rapidapi-key': 'qdwqd'
+                        'x-rapidapi-key': 'api-key'
                     }
                 });
                 setIsLoading(false);
@@ -95,9 +97,7 @@ const Exercises = () => {
                 setIsLoading(false);
             }
         };
-
         getData();
-
         setSearch("");
     }, [bodyPart]);
 
@@ -122,50 +122,45 @@ const Exercises = () => {
         setShowModal(true);
     };
 
-  return (
-    <div className="exercises-container">
-        {showModal && <ExerciseModal exercise={exercise} handleClose={() => setShowModal(false)} />}
-        
-        <ButtonGroup aria-label="Basic example" className="btn-group">
-            {bodyPartList.map((part, index) => (
-                <Button
-                    key={index}
-                    onClick={(e) => handleToggle(e, part)}
-                    variant="secondary"
-                    style={{
-                        color: selectedBodyPart === part ? "blue" : "gray",
-                        backgroundColor: selectedBodyPart === part ? "lightblue" : "lightgray",
-                        borderColor: selectedBodyPart === part ? "blue" : "gray"
-                    }}
-                >
-                    {part.toUpperCase()}
-                </Button>
-            ))}
-        </ButtonGroup>
+    return (
+        <div>
+            {showModal && <ExerciseModal exercise={exercise} handleClose={() => setShowModal(false)} />}
+            <ButtonGroup aria-label="Basic example">
+                {bodyPartList.map((part, index) => (
+                    <Button
+                        key={index}
+                        onClick={(e) => handleToggle(e, part)}
+                        variant="secondary"
+                        style={{
+                            color: selectedBodyPart === part ? "blue" : "gray",
+                            backgroundColor: selectedBodyPart === part ? "lightblue" : "lightgray",
+                            borderColor: selectedBodyPart === part ? "blue" : "gray"
+                        }}
+                    >
+                        {part.toUpperCase()}
+                    </Button>
+                ))}
+            </ButtonGroup>
 
-        <input
-            type="text"
-            className="exercises-search-input"
-            placeholder="Search exercises..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)} 
-        />
+            <input
+                type="text"
+                placeholder="Search exercises..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                style={{ marginBottom: '20px', padding: '10px', width: '100%' }}
+            />
 
-        {isLoading && <Loader />}
-
-        <div className="responsive-table">
-            <DataTable 
-                columns={columns} 
-                data={filteredData} 
+            {isLoading && <Loader />}
+            <DataTable
+                columns={columns}
+                data={filteredData}
                 pagination
                 highlightOnHover
                 pointerOnHover
-                responsive  // Make DataTable responsive
-                onRowClicked={handleRowClick}
+                responsive
             />
         </div>
-    </div>
-  );
+    );
 };
 
 export default Exercises;
