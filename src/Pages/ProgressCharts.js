@@ -11,7 +11,7 @@ const ProgressCharts = () => {
 
   // Fetch data from the backend
   useEffect(() => {
-    const backendUrl = "http://localhost:5000";
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
     const fetchProgressData = async () => {
       try {
         const response = await axios.get(`${backendUrl}/api/workouts/progresscharts`);

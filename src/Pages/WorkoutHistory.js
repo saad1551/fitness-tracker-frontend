@@ -15,7 +15,7 @@ const WorkoutHistory = () => {
 
     useEffect(() => {
         const getWorkoutsData = async () => {
-            const backendUrl = "http://localhost:5000";
+            const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
             try {
                 const response = await axios.get(`${backendUrl}/api/workouts/workouthistory`);

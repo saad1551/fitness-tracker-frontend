@@ -65,7 +65,7 @@ const Exercises = () => {
                 const response = await axios.get(url, {
                     headers: {
                         'x-rapidapi-host': 'exercisedb.p.rapidapi.com',
-                        'x-rapidapi-key': 'api-key'
+                        'x-rapidapi-key': process.env.REACT_APP_EXERCISES_API_KEY
                     }
                 });
                 setIsLoading(false);
@@ -86,7 +86,7 @@ const Exercises = () => {
                 const response = await axios.get(url, {
                     headers: {
                         'x-rapidapi-host': 'exercisedb.p.rapidapi.com',
-                        'x-rapidapi-key': 'api-key'
+                        'x-rapidapi-key': process.env.REACT_APP_EXERCISES_API_KEY
                     }
                 });
                 setIsLoading(false);

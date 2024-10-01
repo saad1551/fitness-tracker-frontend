@@ -8,7 +8,7 @@ const WorkoutHistoryDetail = ({ workout, onBack }) => {
 
     useEffect(() => {
         const fetchExercises = async () => {
-            const backendUrl = "http://localhost:5000";
+            const backendUrl = process.env.REACT_APP_BACKEND_URL;
             setIsLoading(true);
             console.log(workout._id);
             try {

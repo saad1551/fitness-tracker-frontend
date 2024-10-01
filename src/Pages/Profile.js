@@ -11,7 +11,7 @@ const Profile = () => {
 
     useEffect(() => {
         const getUserData = async () => {
-            const backendUrl = "http://localhost:5000";
+            const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
             try {
                 setIsLoading(true);
@@ -44,7 +44,7 @@ const Profile = () => {
     };
 
     const handleSaveChanges = async () => {
-        const backendUrl = "http://localhost:5000";
+        const backendUrl = process.env.REACT_APP_BACKEND_URL;
         setIsLoading(true);
 
         try {

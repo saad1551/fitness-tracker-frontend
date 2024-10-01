@@ -38,7 +38,7 @@ function App() {
   useEffect(() => {
     const checkNotifications = async () => {
       try {
-        const backendUrl = "localhost:5000";
+        const backendUrl = process.env.REACT_APP_BACKEND_URL;
         const response = await axios.get(`${backendUrl}/api/users/notifications`);
         if (response.data) {
           toast.info(response.data.message); // Show the notification using toast
@@ -53,6 +53,8 @@ function App() {
       checkNotifications(); // Fetch notifications if logged in
     }
   },); // Run once on mount
+
+
   return (
     <Router>
       <div className="App">

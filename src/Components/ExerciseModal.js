@@ -25,7 +25,7 @@ const ExerciseModal = ({ handleClose, exercise }) => {
     const ongoingWorkoutId = localStorage.getItem('ongoingWorkoutId');
 
     const handleStart = async(req, res) => {
-      const backendUrl = "http://localhost:5000";
+      const backendUrl = process.env.REACT_APP_BACKEND_URL;
           if (workoutOngoing) {
             const response = await axios.post(`${backendUrl}/api/workouts/startexercise`, {
               workout_id: ongoingWorkoutId,

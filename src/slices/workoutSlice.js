@@ -39,7 +39,7 @@ export const { setWorkoutStatus, clearWorkoutStatus, setWorkoutId, clearWorkoutI
 
 // Thunk to get workout status
 export const fetchWorkoutStatus = () => async (dispatch) => {
-  const backendUrl = 'http://localhost:5000';
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   try {
     const response = await axios.get(`${backendUrl}/api/workouts/workoutstatus`);
     if (response.status === 200) {

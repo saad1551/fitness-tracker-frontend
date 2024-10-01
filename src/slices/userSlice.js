@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 // Define the backend URL globally
-const backendUrl = 'http://localhost:5000';
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 // Async thunk for logging in the user
 export const loginUser = createAsyncThunk('user/login', async (formData, { rejectWithValue }) => {
