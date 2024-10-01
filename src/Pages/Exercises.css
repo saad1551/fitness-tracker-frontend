@@ -1,0 +1,99 @@
+/* General container styles */
+.exercises-container {
+    padding: 20px;
+}
+
+button {
+    margin: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button:focus {
+    outline: none;
+}
+
+/* Search input styling */
+.exercises-search-input {
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* Modal styling for responsiveness */
+.exercise-modal {
+    width: 80%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* DataTable image styling */
+.data-table-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+/* Responsive Button Group */
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/* Responsive table wrapper */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Ensure table is responsive */
+.data-table {
+    width: 100%;
+    min-width: 100%;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .btn-group {
+        flex-direction: column;
+    }
+
+    .cta-button {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+
+    .exercises-search-input {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    /* Adjust image size for smaller screens */
+    .data-table-image {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cta-button {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+    .exercises-search-input {
+        font-size: 12px;
+    }
+
+    .data-table-image {
+        width: 60px;
+        height: 60px;
+    }
+}

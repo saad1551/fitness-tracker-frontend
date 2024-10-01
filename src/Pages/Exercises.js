@@ -1,11 +1,12 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import DataTable from 'react-data-table-component';
 import Loader from '../Components/Loader';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ExerciseModal from '../Components/ExerciseModal';
+import './Exercises.css'; // Import CSS for responsive design
 
 const Exercises = () => {
     const [exerciseData, setExerciseData] = useState();
@@ -18,41 +19,36 @@ const Exercises = () => {
     const [showModal, setShowModal] = useState(false);
     const [exercise, setExercise] = useState(null);
 
-//     bodyPart:"back"
-// equipment:"cable"
-// gifUrl:"https://v2.exercisedb.io/image/gIyI36lY3VAjMa"
-// id:"0007"
-// name:"alternate lateral pulldown"
-// target:"lats"
-// secondaryMuscles:
-// instructions:
-
-
     const columns = [
         {
             name: 'Name',
             selector: row => row.name.toUpperCase(),
+            sortable: true,
+            wrap: true,  // Wrap text for better responsiveness
         },
         {
             name: 'Body Part',
             selector: row => row.bodyPart.toUpperCase(),
+            sortable: true,
+            wrap: true,
         },
         {
             name: 'Equipment',
             selector: row => row.equipment.toUpperCase(),
+            sortable: true,
+            wrap: true,
         },
         {
             name: 'Image',
-            cell: row => <img src={row.gifUrl} alt="gif" width="100" height="100" />,
+            cell: row => <img src={row.gifUrl} alt="gif" className="data-table-image" />,
+            ignoreRowClick: true, // Prevents click on image
+            sortable: false,
         },
         {
             name: 'Target',
             selector: row => row.target.toUpperCase(),
-        },
-        {
-            name: 'Instructions',
-            selector: row => row.instructions,
-            omit: true
+            sortable: true,
+            wrap: true,
         },
     ];
 
@@ -105,7 +101,6 @@ const Exercises = () => {
         setSearch("");
     }, [bodyPart]);
 
-    // Filter data based on the search query and body part
     useEffect(() => {
         const result = exerciseData?.filter((exercise) => {
             return (
@@ -119,52 +114,58 @@ const Exercises = () => {
 
     const handleToggle = (e, bodyPart) => {
         setSelectedBodyPart(bodyPart);
-
         setBodyPart(bodyPart);
     };
 
     const handleRowClick = (row) => {
-        // Trigger some action when a row is clicked
         setExercise(row);
         setShowModal(true);
     };
 
   return (
-    <div>
-            {showModal && <ExerciseModal exercise={exercise} handleClose={()=>setShowModal(false)} />}
-            <ButtonGroup aria-label="Basic example">
-                {bodyPartList.map((part, index) => (
-                    <Button
-                        key={index}
-                        onClick={(e) => handleToggle(e, part)}
-                        variant="secondary"
-                        style={{
-                            color: selectedBodyPart === part ? "blue" : "gray", // Blue when selected, gray when not
-                            backgroundColor: selectedBodyPart === part ? "lightblue" : "lightgray", // Background color change for better UX
-                            borderColor: selectedBodyPart === part ? "blue" : "gray" // Border to visually match the color
-                        }}
-                    >
-                        {part.toUpperCase()}
-                    </Button>
-                ))}
-            </ButtonGroup>
+    <div className="exercises-container">
+        {showModal && <ExerciseModal exercise={exercise} handleClose={() => setShowModal(false)} />}
+        
+        <ButtonGroup aria-label="Basic example" className="btn-group">
+            {bodyPartList.map((part, index) => (
+                <Button
+                    key={index}
+                    onClick={(e) => handleToggle(e, part)}
+                    variant="secondary"
+                    style={{
+                        color: selectedBodyPart === part ? "blue" : "gray",
+                        backgroundColor: selectedBodyPart === part ? "lightblue" : "lightgray",
+                        borderColor: selectedBodyPart === part ? "blue" : "gray"
+                    }}
+                >
+                    {part.toUpperCase()}
+                </Button>
+            ))}
+        </ButtonGroup>
 
-            <input
-                type="text"
-                placeholder="Search exercises..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)} // Update search state
-                style={{ marginBottom: '20px', padding: '10px', width: '100%' }}
-            />
+        <input
+            type="text"
+            className="exercises-search-input"
+            placeholder="Search exercises..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)} 
+        />
 
-            {isLoading && <Loader />}
-            <DataTable columns={columns} data={filteredData} pagination
-                            highlightOnHover
-                            pointerOnHover // Changes cursor to pointer on hover
-                            onRowClicked={handleRowClick} // Make rows clickable
+        {isLoading && <Loader />}
+
+        <div className="responsive-table">
+            <DataTable 
+                columns={columns} 
+                data={filteredData} 
+                pagination
+                highlightOnHover
+                pointerOnHover
+                responsive  // Make DataTable responsive
+                onRowClicked={handleRowClick}
             />
+        </div>
     </div>
-  )
-}
+  );
+};
 
-export default Exercises
+export default Exercises;
