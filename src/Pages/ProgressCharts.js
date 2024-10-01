@@ -57,51 +57,50 @@ const ProgressCharts = () => {
           </Card>
         </Col>
         {activeTab === 'thisWeek' ? (
-  <>
-    <Col>
-      <Card>
-        <Card.Body>
-          <Card.Title>Total Time Spent (Hours)</Card.Title>
-          <Card.Text>{stats.totalTimeSpent.toFixed(4)}</Card.Text>
-        </Card.Body>
-      </Card>
-    </Col>
-    <Col>
-      <Card>
-        <Card.Body>
-          <Card.Title>Average Time Spent (Hours)</Card.Title>
-          <Card.Text>{stats.averageTimeSpent.toFixed(4)}</Card.Text>
-        </Card.Body>
-      </Card>
-    </Col>
-  </>
-) : (
-  <Col>
-    <Card>
-      <Card.Body>
-        <Card.Title>Total Time Spent (Hours)</Card.Title>
-        <Card.Text>{stats.timeSpent.toFixed(4)}</Card.Text>
-      </Card.Body>
-    </Card>
-  </Col>
-)}
-
+          <>
+            <Col>
+              <Card>
+                <Card.Body>
+                  <Card.Title>Total Time Spent (Hours)</Card.Title>
+                  <Card.Text>{stats.totalTimeSpent.toFixed(4)}</Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col>
+              <Card>
+                <Card.Body>
+                  <Card.Title>Average Time Spent (Hours)</Card.Title>
+                  <Card.Text>{stats.averageTimeSpent.toFixed(4)}</Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          </>
+        ) : (
+          <Col>
+            <Card>
+              <Card.Body>
+                <Card.Title>Total Time Spent (Hours)</Card.Title>
+                <Card.Text>{stats.timeSpent.toFixed(4)}</Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+        )}
       </Row>
     );
   };
 
-  // Function to render daily workouts bar chart
-  const renderDailyWorkoutsChart = () => {
+  // Function to render daily time spent chart
+  const renderDailyTimeSpentChart = () => {
     if (!data || activeTab !== 'thisWeek') return null;
 
-    const dailyCounts = data.thisWeek.dailyWorkoutCount || [0, 0, 0, 0, 0, 0, 0]; // Default to zero if no data
+    const dailyTimeSpent = data.thisWeek.dailyTimeSpent || [0, 0, 0, 0, 0, 0, 0]; // Default to zero if no data
 
     const chartData = {
       labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       datasets: [
         {
-          label: 'Workouts Completed',
-          data: dailyCounts,
+          label: 'Time Spent (Hours)',
+          data: dailyTimeSpent,
           backgroundColor: 'rgba(75, 192, 192, 0.6)',
           borderColor: 'rgba(75, 192, 192, 1)',
           borderWidth: 1,
@@ -112,7 +111,7 @@ const ProgressCharts = () => {
     return (
       <Card className="mt-4">
         <Card.Body>
-          <Card.Title>Daily Workouts This Week</Card.Title>
+          <Card.Title>Daily Time Spent Working Out This Week</Card.Title>
           <Bar data={chartData} options={{ responsive: true }} />
         </Card.Body>
       </Card>
@@ -159,8 +158,8 @@ const ProgressCharts = () => {
       {/* Display the statistics */}
       {data && renderStatistics()}
 
-      {/* Render the daily workouts chart */}
-      {renderDailyWorkoutsChart()}
+      {/* Render the daily time spent chart */}
+      {renderDailyTimeSpentChart()}
     </Container>
   );
 };
