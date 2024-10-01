@@ -172,7 +172,7 @@ const Workout = ({ workoutId, dashboardKey, setDashboardKey }) => {
                 </div>
                 <p>{isRunning ? 'Running' : 'Not running'}</p>
                 <button onClick={start} disabled={isRunning}>Start</button>
-                <button onClick={pause} disabled={!isRunning}>Pause</button>
+                {/* <button onClick={pause} disabled={!isRunning}>Pause</button> */}
                 <button onClick={handleStop}>Stop</button>
             </div>}
             
