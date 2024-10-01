@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Card, Button, Container, Row, Col } from 'react-bootstrap';
 import Loader from '../Components/Loader';
 import { toast } from 'react-toastify';
+import { Bar } from 'react-chartjs-2'; // Importing the Chart.js Bar component
+import 'chart.js/auto'; // Ensure you have chart.js auto imported
 
 const ProgressCharts = () => {
   const [loading, setLoading] = useState(true);
@@ -54,15 +56,66 @@ const ProgressCharts = () => {
             </Card.Body>
           </Card>
         </Col>
-        {/* <Col>
-          <Card>
-            <Card.Body>
-              <Card.Title>Time Spent (Hours)</Card.Title>
-              <Card.Text>{stats.timeSpent.toFixed(2)}</Card.Text>
-            </Card.Body>
-          </Card>
-        </Col> */}
+        {activeTab === 'thisWeek' ? (
+  <>
+    <Col>
+      <Card>
+        <Card.Body>
+          <Card.Title>Total Time Spent (Hours)</Card.Title>
+          <Card.Text>{stats.totalTimeSpent.toFixed(4)}</Card.Text>
+        </Card.Body>
+      </Card>
+    </Col>
+    <Col>
+      <Card>
+        <Card.Body>
+          <Card.Title>Average Time Spent (Hours)</Card.Title>
+          <Card.Text>{stats.averageTimeSpent.toFixed(4)}</Card.Text>
+        </Card.Body>
+      </Card>
+    </Col>
+  </>
+) : (
+  <Col>
+    <Card>
+      <Card.Body>
+        <Card.Title>Total Time Spent (Hours)</Card.Title>
+        <Card.Text>{stats.timeSpent.toFixed(4)}</Card.Text>
+      </Card.Body>
+    </Card>
+  </Col>
+)}
+
       </Row>
+    );
+  };
+
+  // Function to render daily workouts bar chart
+  const renderDailyWorkoutsChart = () => {
+    if (!data || activeTab !== 'thisWeek') return null;
+
+    const dailyCounts = data.thisWeek.dailyWorkoutCount || [0, 0, 0, 0, 0, 0, 0]; // Default to zero if no data
+
+    const chartData = {
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      datasets: [
+        {
+          label: 'Workouts Completed',
+          data: dailyCounts,
+          backgroundColor: 'rgba(75, 192, 192, 0.6)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1,
+        },
+      ],
+    };
+
+    return (
+      <Card className="mt-4">
+        <Card.Body>
+          <Card.Title>Daily Workouts This Week</Card.Title>
+          <Bar data={chartData} options={{ responsive: true }} />
+        </Card.Body>
+      </Card>
     );
   };
 
@@ -105,6 +158,9 @@ const ProgressCharts = () => {
 
       {/* Display the statistics */}
       {data && renderStatistics()}
+
+      {/* Render the daily workouts chart */}
+      {renderDailyWorkoutsChart()}
     </Container>
   );
 };

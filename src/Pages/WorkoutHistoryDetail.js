@@ -30,17 +30,25 @@ const WorkoutHistoryDetail = ({ workout, onBack }) => {
 
     const columns = [
         {
-            name: 'Name',
+            name: 'Exercise Name',
             selector: row => row.name,
         },
         {
             name: 'Sets Completed',
-            selector: row => row.sets.length,
+            // selector: row => row.sets.length,
+            cell: row => <div>
+                <strong>{row.sets.length}</strong>
+                <details>
+                    {row.sets.map((set, index) => (
+                        <p key={index}>Set {index + 1}: {set.weight} Kg, {set.reps} reps</p>
+                    ))}
+                </details>
+            </div>
         },
         {
             name: 'Image',
             cell: row => <img src={row.image} alt="demonstration" style={{ width: '50px' }} />,
-        }
+        },
     ];
 
     return (
