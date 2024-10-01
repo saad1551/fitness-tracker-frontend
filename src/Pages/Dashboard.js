@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Profile from './Profile';
 import Exercises from './Exercises';
 import Workout from './Workout';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchWorkoutStatus } from '../slices/workoutSlice';
 import WorkoutHistory from './WorkoutHistory';
@@ -22,6 +22,8 @@ function Dashboard() {
     dispatch(fetchWorkoutStatus());
   }, [dispatch]); // This runs only once on component mount
 
+  const [dashboardKey, setDashboardKey] = useState();
+
   return (
     <Tabs
       defaultActiveKey="home"
@@ -29,7 +31,7 @@ function Dashboard() {
       className="mb-3"
     >
       <Tab eventKey="home" title="Home">
-        {!workoutOngoing ? <Exercises /> : <Workout workoutId={workoutId} />}
+        {!workoutOngoing ? <Exercises /> : <Workout dashboardKey={dashboardKey} setDashboardKey={setDashboardKey} workoutId={workoutId} />}
       </Tab>
       <Tab eventKey="workout_history" title="Workout History">
         <WorkoutHistory />

@@ -11,8 +11,9 @@ import StartSetModal from '../Components/StartSetModal'; // Import StartSetModal
 import Exercises from './Exercises'; // Import Exercises for the modal
 import Modal from 'react-bootstrap/Modal'; // Import Modal from Bootstrap
 import ExercisesModal from '../Components/ExercisesModal';
+import { setWorkoutStatus } from '../slices/workoutSlice';
 
-const Workout = ({ workoutId }) => {
+const Workout = ({ workoutId, dashboardKey, setDashboardKey }) => {
     const [workoutName, setWorkoutName] = useState("");
     const [exercises, setExercises] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -131,6 +132,9 @@ const Workout = ({ workoutId }) => {
             if (response.status === 200) {
                 toast.success('Workout stopped successfully');
                 setShowStopWorkoutConfirmation(false);
+                const newDashboardKey = dashboardKey + 1;
+                setDashboardKey(newDashboardKey);
+                dispatch(setWorkoutStatus(false));
             }
         } catch (error) {
             toast.error(`Failed to stop workout: ${error.message}`);
