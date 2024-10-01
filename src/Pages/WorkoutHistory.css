@@ -1,0 +1,12 @@
+@media (max-width: 768px) {
+    h2 {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .data-table {
+        font-size: 12px;
+    }
+
+    /* Adjust pagination or other elements if needed */
+}
