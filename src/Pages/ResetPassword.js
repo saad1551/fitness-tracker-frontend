@@ -36,7 +36,7 @@ const ResetPassword = () => {
         e.preventDefault();
         console.log(formData);
 
-        const backendUrl = "http://localhost:5000";
+        const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
         if (formData.password !== formData.password2) {
             alert("Passwords don't match");

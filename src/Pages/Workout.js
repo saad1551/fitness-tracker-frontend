@@ -20,6 +20,7 @@ const Workout = ({ workoutId }) => {
     const [showStartSetModal, setShowStartSetModal] = useState(false);
     const [selectedExercise, setSelectedExercise] = useState(null);
     const [showStopWorkoutConfirmation, setShowStopWorkoutConfirmation] = useState(false);
+    const [componentKey, setComponentKey] = useState(0);
     
     // New state for managing the Exercises modal
     const [showExercisesModal, setShowExercisesModal] = useState(false);
@@ -78,7 +79,7 @@ const Workout = ({ workoutId }) => {
 
     useEffect(() => {
         const getWorkoutDetails = async() => {
-            const backendUrl = "http://localhost:5000";
+            const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
             try {
                 setIsLoading(true);
@@ -95,7 +96,7 @@ const Workout = ({ workoutId }) => {
         };
 
         getWorkoutDetails();
-    }, [workoutId]);
+    }, [workoutId, componentKey]);
 
     // Handle clicking on an exercise
     const handleExerciseClick = (exercise) => {
@@ -124,7 +125,7 @@ const Workout = ({ workoutId }) => {
     // Handle the user confirmation to stop the workout
     const confirmStopWorkout = async () => {
         try {
-            const backendUrl = "http://localhost:5000"; // Replace with your actual backend URL
+            const backendUrl = process.env.REACT_APP_BACKEND_URL; // Replace with your actual backend URL
             const response = await axios.post(`${backendUrl}/api/workouts/stopworkout`, { workout_id: workoutId });
 
             if (response.status === 200) {
@@ -149,7 +150,7 @@ const Workout = ({ workoutId }) => {
     return (
         <div>
             {isLoading && <Loader />}
-            {showLogSetModal && <LogSetModal minutes={minutes} seconds={seconds} />}
+            {showLogSetModal && <LogSetModal componentKey={componentKey} setComponentKey={setComponentKey} minutes={minutes} seconds={seconds} />}
             
             {/* Show StartSetModal when a set is not ongoing */}
             {showStartSetModal && selectedExercise && (
