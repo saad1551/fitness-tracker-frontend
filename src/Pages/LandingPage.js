@@ -15,7 +15,6 @@ const LandingPage = () => {
           </Link>
         </div>
         <div className="hero-image">
-          {/* Example image - replace with your own */}
           <img src="/images/cbum.avif" alt="Fitness" />
         </div>
       </section>
