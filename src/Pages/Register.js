@@ -63,7 +63,7 @@ const Register = () => {
                 Name
                 </Form.Label>
                 <Col sm={9}>
-                <Form.Control type="text" placeholder="Name" name="name" value={formData.name} onChange={(e) => handleChange(e)} />
+                <Form.Control type="text" placeholder="Name" name="name" required value={formData.name} onChange={(e) => handleChange(e)} />
                 </Col>
             </Form.Group>
 
@@ -72,7 +72,7 @@ const Register = () => {
                 Email
                 </Form.Label>
                 <Col sm={9}>
-                <Form.Control type="email" placeholder="Email" name="email" value={formData.email} onChange={(e) => handleChange(e)} />
+                <Form.Control type="email" placeholder="Email" name="email" required value={formData.email} onChange={(e) => handleChange(e)} />
                 </Col>
             </Form.Group>
 
@@ -81,7 +81,7 @@ const Register = () => {
                 Password
                 </Form.Label>
                 <Col sm={9}>
-                <Form.Control type="password" placeholder="Password" name="password" value={formData.password} onChange={(e) => handleChange(e)} />
+                <Form.Control type="password" placeholder="Password" name="password" required value={formData.password} onChange={(e) => handleChange(e)} />
                 </Col>
             </Form.Group>
 
