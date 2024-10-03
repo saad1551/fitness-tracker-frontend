@@ -1,12 +1,75 @@
+/* General container styles */
+.workout-history-container {
+    padding: 20px;
+    background-color: #f9f9f9; /* Light background for contrast */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    margin: 20px; /* Spacing around the container */
+}
+
+/* Header styling */
+h2 {
+    text-align: center; /* Center align the header */
+    margin-bottom: 20px; /* Spacing below header */
+    font-size: 28px; /* Larger font for emphasis */
+    color: #333; /* Darker text color */
+}
+
+/* DataTable styling */
+.data-table {
+    border-radius: 10px; /* Rounded corners for the table */
+    overflow: hidden; /* Hide overflow */
+}
+
+.data-table .rdt_Table {
+    border: none; /* Remove default table border */
+}
+
+.data-table .rdt_TableHeader {
+    background-color: #007bff; /* Header background color */
+    color: white; /* Header text color */
+}
+
+.table-cell {
+    padding: 10px; /* Add padding for table cells */
+    font-weight: 500; /* Make text slightly bolder */
+}
+
+/* Pagination styling */
+.rdt_Pagination {
+    display: flex;
+    justify-content: center; /* Center pagination */
+    margin-top: 10px; /* Spacing above pagination */
+}
+
+/* Loading and no data message */
+.no-data-message {
+    text-align: center; /* Center text */
+    font-size: 18px; /* Font size */
+    color: #666; /* Slightly muted color */
+}
+
+/* Media Queries */
 @media (max-width: 768px) {
     h2 {
-        font-size: 18px;
-        text-align: center;
+        font-size: 22px; /* Smaller header on mobile */
     }
 
     .data-table {
-        font-size: 12px;
+        font-size: 14px; /* Adjust font size for mobile */
     }
 
-    /* Adjust pagination or other elements if needed */
+    .no-data-message {
+        font-size: 16px; /* Adjust font size for mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 20px; /* Further reduce font size on very small screens */
+    }
+    
+    .table-cell {
+        padding: 8px; /* Reduce padding on small screens */
+    }
 }

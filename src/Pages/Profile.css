@@ -1,0 +1,56 @@
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Full viewport height */
+    padding: 20px; /* Padding around the container */
+    background-color: #f8f9fa; /* Light gray background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.profile-title {
+    font-size: 32px; /* Larger title font size */
+    color: #333; /* Dark text color */
+    margin-bottom: 20px; /* Space below the title */
+}
+
+.profile-form {
+    width: 100%;
+    max-width: 600px; /* Maximum width for form */
+    background-color: #ffffff; /* White background for the form */
+    border-radius: 8px; /* Rounded corners for the form */
+    padding: 20px; /* Padding inside the form */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for the form */
+}
+
+.form-label {
+    font-weight: bold; /* Bold labels */
+}
+
+.submit-button {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 10px 20px; /* Padding for button */
+    font-size: 16px; /* Font size for button */
+    transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+.submit-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .profile-title {
+        font-size: 24px; /* Smaller title on mobile */
+    }
+
+    .submit-button {
+        width: 100%; /* Full width button on mobile */
+        font-size: 14px; /* Smaller button text on mobile */
+    }
+}

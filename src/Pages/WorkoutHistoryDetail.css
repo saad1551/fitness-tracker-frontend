@@ -1,0 +1,64 @@
+.workout-detail-container {
+    padding: 20px;
+    background-color: #ffffff; /* White background for the detail view */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin: 20px auto; /* Center container with margin */
+    max-width: 800px; /* Maximum width for larger screens */
+}
+
+.workout-title {
+    text-align: center; /* Center align the title */
+    margin-bottom: 20px; /* Spacing below title */
+    font-size: 28px; /* Larger font size for emphasis */
+    color: #333; /* Darker text color */
+    font-weight: bold; /* Bold title */
+}
+
+.loading-message {
+    text-align: center;
+    font-size: 18px; /* Font size for loading message */
+    color: #007bff; /* Primary color for loading message */
+}
+
+.exercise-table {
+    margin-top: 20px; /* Margin above the table */
+}
+
+.exercise-image {
+    width: 50px; /* Fixed width for images */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 4px; /* Slightly rounded corners for images */
+}
+
+.back-button {
+    display: block; /* Block display for centering */
+    margin: 20px auto 0; /* Center button with top margin */
+    padding: 10px 20px; /* Padding for button */
+    font-size: 16px; /* Font size for button */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners */
+    background-color: #6c757d; /* Bootstrap secondary color */
+    color: white; /* White text */
+    cursor: pointer; /* Pointer cursor for button */
+    transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+.back-button:hover {
+    background-color: #5a6268; /* Darker on hover */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .workout-title {
+        font-size: 24px; /* Smaller title on mobile */
+    }
+
+    .loading-message {
+        font-size: 16px; /* Adjust font size for loading message */
+    }
+
+    .back-button {
+        font-size: 14px; /* Smaller button text on mobile */
+    }
+}

@@ -19,11 +19,13 @@ const WorkoutHistory = () => {
 
             try {
                 const response = await axios.get(`${backendUrl}/api/workouts/workouthistory`);
-                if (response.status !== 404) {
+                if (response.status === 200) {
                     setWorkoutHistory(response.data);
+                } else {
+                    toast.error("No workout history found.");
                 }
             } catch (error) {
-                toast.error(error);
+                toast.error("Failed to fetch workout history: " + error.message);
             }
         };
 
@@ -37,20 +39,23 @@ const WorkoutHistory = () => {
             selector: row => row.name,
             sortable: true,
             wrap: true,
+            cell: row => <span className="table-cell">{row.name}</span>,
         },
         {
             name: 'Exercises Completed',
             selector: row => row.exercisesCompleted,
             sortable: true,
             wrap: true,
+            cell: row => <span className="table-cell">{row.exercisesCompleted}</span>,
         },
         {
             name: 'Date',
             selector: row => new Date(row.date).toLocaleString(),
             sortable: true,
             wrap: true,
-        }
-    ].filter(Boolean); // Filters out undefined columns (in this case, "Exercises Completed" on mobile)
+            cell: row => <span className="table-cell">{new Date(row.date).toLocaleString()}</span>,
+        },
+    ];
 
     // Handle row click and select workout
     const handleWorkoutClick = (row) => {
@@ -69,17 +74,23 @@ const WorkoutHistory = () => {
 
     // Render the workout history table
     return (
-        <div>
+        <div className="workout-history-container">
             <h2>Workout History</h2>
-            <DataTable 
-                columns={columns} 
-                data={workoutHistory} 
-                pagination
-                highlightOnHover
-                pointerOnHover
-                responsive
-                onRowClicked={handleWorkoutClick} // Make rows clickable
-            />
+            {workoutHistory.length > 0 ? (
+                <DataTable 
+                    columns={columns} 
+                    data={workoutHistory} 
+                    pagination
+                    highlightOnHover
+                    pointerOnHover
+                    responsive
+                    onRowClicked={handleWorkoutClick} // Make rows clickable
+                    className="data-table"
+                    noDataComponent={<p>No workout history available.</p>} // Custom no data message
+                />
+            ) : (
+                <p className="no-data-message">Loading workout history...</p>
+            )}
         </div>
     );
 };

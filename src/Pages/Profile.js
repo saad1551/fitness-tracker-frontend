@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Col, Form, Row } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react';
+import { Button, Col, Form, Row } from 'react-bootstrap';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Loader from '../Components/Loader';
+import './Profile.css'; // Import the CSS file for styles
 
 const Profile = () => {
     const [userData, setUserData] = useState({});
@@ -29,12 +30,10 @@ const Profile = () => {
         getUserData();
     }, []);
 
-    // Function to toggle the edit mode
     const handleEditProfile = () => {
-        setIsEditing(!isEditing);  // Toggle the editing state
+        setIsEditing(!isEditing); // Toggle the editing state
     };
 
-    // Function to handle changes to form inputs
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setUserData((prevData) => ({
@@ -59,15 +58,15 @@ const Profile = () => {
         }
 
         setIsEditing(!isEditing);
-        console.log('Changes saved');
-    }
+    };
 
     return (
-        <div className="d-flex flex-column justify-content-center align-items-center min-vh-100">
+        <div className="profile-container">
             {isLoading && <Loader />}
-            <Form>
+            <h2 className="profile-title">Profile</h2>
+            <Form className="profile-form">
                 <Form.Group as={Row} className="mb-3" controlId="formHorizontalName">
-                    <Form.Label column sm={2}>
+                    <Form.Label column sm={2} className="form-label">
                         Name
                     </Form.Label>
                     <Col sm={10}>
@@ -83,7 +82,7 @@ const Profile = () => {
                 </Form.Group>
 
                 <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-                    <Form.Label column sm={2}>
+                    <Form.Label column sm={2} className="form-label">
                         Email
                     </Form.Label>
                     <Col sm={10}>
@@ -99,7 +98,7 @@ const Profile = () => {
                 </Form.Group>
 
                 <Form.Group as={Row} className="mb-3" controlId="formHorizontalPhone">
-                    <Form.Label column sm={2}>
+                    <Form.Label column sm={2} className="form-label">
                         Phone
                     </Form.Label>
                     <Col sm={10}>
@@ -115,7 +114,7 @@ const Profile = () => {
                 </Form.Group>
 
                 <Form.Group as={Row} className="mb-3" controlId="formHorizontalAge">
-                    <Form.Label column sm={2}>
+                    <Form.Label column sm={2} className="form-label">
                         Age
                     </Form.Label>
                     <Col sm={10}>
@@ -131,7 +130,7 @@ const Profile = () => {
                 </Form.Group>
 
                 <Form.Group as={Row} className="mb-3" controlId="formHorizontalWorkoutTime">
-                    <Form.Label column sm={2}>
+                    <Form.Label column sm={2} className="form-label">
                         Workout Time
                     </Form.Label>
                     <Col sm={10}>
@@ -150,6 +149,7 @@ const Profile = () => {
                     <Col sm={{ span: 12, offset: 0 }}>
                         <Button
                             type="button"
+                            className="submit-button"
                             onClick={!isEditing ? handleEditProfile : handleSaveChanges}
                         >
                             {isEditing ? 'Save Changes' : 'Edit Profile'}

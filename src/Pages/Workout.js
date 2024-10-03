@@ -7,11 +7,12 @@ import { useStopwatch } from 'react-timer-hook';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSetStatus } from '../slices/workoutSlice';
 import LogSetModal from '../Components/LogSetModal';
-import StartSetModal from '../Components/StartSetModal'; // Import StartSetModal
-import Exercises from './Exercises'; // Import Exercises for the modal
-import Modal from 'react-bootstrap/Modal'; // Import Modal from Bootstrap
+import StartSetModal from '../Components/StartSetModal';
 import ExercisesModal from '../Components/ExercisesModal';
 import { setWorkoutStatus } from '../slices/workoutSlice';
+import { Button, Modal, Container, Row, Col } from 'react-bootstrap';
+import './Workout.css'; // Make sure the path is correct based on your folder structure
+
 
 const Workout = ({ workoutId, dashboardKey, setDashboardKey }) => {
     const [workoutName, setWorkoutName] = useState("");
@@ -22,10 +23,8 @@ const Workout = ({ workoutId, dashboardKey, setDashboardKey }) => {
     const [selectedExercise, setSelectedExercise] = useState(null);
     const [showStopWorkoutConfirmation, setShowStopWorkoutConfirmation] = useState(false);
     const [componentKey, setComponentKey] = useState(0);
-    
-    // New state for managing the Exercises modal
     const [showExercisesModal, setShowExercisesModal] = useState(false);
-
+    
     const setOngoing = useSelector((state) => state.workout.setOngoing);
     const onGoingExercise = useSelector((state) => state.workout.onGoingExercise);
     
@@ -34,52 +33,8 @@ const Workout = ({ workoutId, dashboardKey, setDashboardKey }) => {
     // Stopwatch hook
     const { seconds, minutes, isRunning, start, pause, reset } = useStopwatch({ autoStart: false });
 
-    // Use effect to load data from localStorage on component mount
     useEffect(() => {
-        const storedSetOngoing = localStorage.getItem('setOngoing');
-        const storedMinutes = localStorage.getItem('timerMinutes');
-        const storedSeconds = localStorage.getItem('timerSeconds');
-
-        if (storedSetOngoing === 'true') {
-            dispatch(setSetStatus(true));
-            if (storedMinutes || storedSeconds) {
-                reset(new Date(Date.now() - (storedMinutes * 60000 + storedSeconds * 1000))); // Adjusting the timer to resume from saved time
-                start(); // Auto-start timer if a set was ongoing
-            }
-        }
-    }, [dispatch, reset, start]);
-
-    // Save to localStorage whenever set status or timer changes
-    useEffect(() => {
-        localStorage.setItem('setOngoing', setOngoing);
-        if (setOngoing) {
-            localStorage.setItem('timerMinutes', minutes);
-            localStorage.setItem('timerSeconds', seconds);
-        }
-    }, [setOngoing, minutes, seconds]);
-
-    const columns = [
-        {
-            name: 'id',
-            selector: row => row.id,
-            omit: true
-        },
-        {
-            name: 'Name',
-            selector: row => row.name.toUpperCase(),
-        },
-        {
-            name: 'Sets Completed',
-            selector: row => row.sets.length,
-        },
-        {
-            name: 'Image',
-            cell: row => <img src={row.image} alt="gif" width="100" height="100" />,
-        },
-    ];
-
-    useEffect(() => {
-        const getWorkoutDetails = async() => {
+        const getWorkoutDetails = async () => {
             const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
             try {
@@ -99,34 +54,29 @@ const Workout = ({ workoutId, dashboardKey, setDashboardKey }) => {
         getWorkoutDetails();
     }, [workoutId, componentKey]);
 
-    // Handle clicking on an exercise
     const handleExerciseClick = (exercise) => {
         if (!setOngoing) {
-            setSelectedExercise(exercise); // Set the clicked exercise
-            setShowStartSetModal(true); // Open StartSetModal
+            setSelectedExercise(exercise);
+            setShowStartSetModal(true);
         }
-        console.log(exercise);
     };
 
     const handleStop = () => {
         dispatch(setSetStatus(false));
         setShowLogSetModal(true);
-        console.log(`${minutes}: ${seconds}`);
-        pause(); // Pause the timer when stopped
-        localStorage.removeItem('setOngoing'); // Clear set status in localStorage
+        pause();
+        localStorage.removeItem('setOngoing');
         localStorage.removeItem('timerMinutes');
         localStorage.removeItem('timerSeconds');
     };
 
-    // Handle stop workout button click with confirmation
     const handleStopWorkoutClick = () => {
-        setShowStopWorkoutConfirmation(true); // Show confirmation dialog
+        setShowStopWorkoutConfirmation(true);
     };
 
-    // Handle the user confirmation to stop the workout
     const confirmStopWorkout = async () => {
         try {
-            const backendUrl = process.env.REACT_APP_BACKEND_URL; // Replace with your actual backend URL
+            const backendUrl = process.env.REACT_APP_BACKEND_URL;
             const response = await axios.post(`${backendUrl}/api/workouts/stopworkout`, { workout_id: workoutId });
 
             if (response.status === 200) {
@@ -141,76 +91,73 @@ const Workout = ({ workoutId, dashboardKey, setDashboardKey }) => {
         }
     };
 
-    // Handle opening the Exercises modal
-    const handleOpenExercisesModal = () => {
-        setShowExercisesModal(true);
-    };
-
-    // Handle closing the Exercises modal
-    const handleCloseExercisesModal = () => {
-        setShowExercisesModal(false);
-    };
+    const columns = [
+        {
+            name: 'ID',
+            selector: row => row.id,
+            omit: true
+        },
+        {
+            name: 'Exercise',
+            selector: row => row.name.toUpperCase(),
+        },
+        {
+            name: 'Sets Completed',
+            selector: row => row.sets.length,
+        },
+        {
+            name: 'Image',
+            cell: row => <img src={row.image} alt="gif" width="100" height="100" />,
+        },
+    ];
 
     return (
-        <div>
+        <Container className="my-4">
             {isLoading && <Loader />}
             {showLogSetModal && <LogSetModal componentKey={componentKey} setComponentKey={setComponentKey} minutes={minutes} seconds={seconds} />}
+            {showStartSetModal && selectedExercise && <StartSetModal exercise={selectedExercise} handleClose={() => setShowStartSetModal(false)} />}
             
-            {/* Show StartSetModal when a set is not ongoing */}
-            {showStartSetModal && selectedExercise && (
-                <StartSetModal 
-                    exercise={selectedExercise}
-                    handleClose={() => setShowStartSetModal(false)} 
-                />
-            )}
-
-            {setOngoing && 
-            <div style={{ textAlign: 'center' }}>
-                <h3>{onGoingExercise?.name}</h3>
-                <div style={{ fontSize: '100px' }}>
-                    <span>{minutes}</span>:<span>{seconds}</span>
-                </div>
-                <p>{isRunning ? 'Running' : 'Not running'}</p>
-                <button onClick={start} disabled={isRunning}>Start</button>
-                {/* <button onClick={pause} disabled={!isRunning}>Pause</button> */}
-                <button onClick={handleStop}>Stop</button>
-            </div>}
-            
-            <h3>{workoutName}</h3>
-            <DataTable 
-                columns={columns} 
-                data={exercises} 
-                highlightOnHover
-                pointerOnHover // Changes cursor to pointer on hover
-                onRowClicked={handleExerciseClick} // Make rows clickable
-            />
-
-            {/* Button to open the Exercises modal */}
-            <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                <button onClick={handleOpenExercisesModal} className="btn btn-primary">
-                    +
-                </button>
-            </div>
-
-            {/* Modal for selecting exercises */}
-            {showExercisesModal && <ExercisesModal handleClose={() => setShowExercisesModal(false)} />}
-
-            {/* Button to stop the workout */}
-            <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                <button onClick={handleStopWorkoutClick} className="btn btn-danger">
-                    Stop Workout
-                </button>
-            </div>
+            <Row className="justify-content-center">
+                <Col xs={12} md={6} className="text-center">
+                    <h3 className="text-primary">{workoutName}</h3>
+                    {setOngoing && 
+                        <div className="timer">
+                            <h4>Current Exercise: {onGoingExercise?.name}</h4>
+                            <div className="timer-display">
+                                <span className="timer-minutes">{String(minutes).padStart(2, '0')}</span>:<span className="timer-seconds">{String(seconds).padStart(2, '0')}</span>
+                            </div>
+                            <p>{isRunning ? 'Running' : 'Not running'}</p>
+                            <Button variant="success" onClick={start} disabled={isRunning}>Start</Button>
+                            <Button variant="danger" onClick={handleStop}>Stop</Button>
+                        </div>
+                    }
+                    <DataTable 
+                        columns={columns} 
+                        data={exercises} 
+                        highlightOnHover
+                        pointerOnHover
+                        onRowClicked={handleExerciseClick}
+                        className="mt-4"
+                    />
+                    <Button variant="primary" className="mt-3" onClick={() => setShowExercisesModal(true)}>Add Exercise</Button>
+                    <Button variant="danger" className="mt-3" onClick={handleStopWorkoutClick}>Stop Workout</Button>
+                </Col>
+            </Row>
 
             {/* Confirmation to stop the workout */}
-            {showStopWorkoutConfirmation && (
-                <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                    <p>Are you sure you want to stop the workout?</p>
-                    <button onClick={confirmStopWorkout} className="btn btn-primary">Yes</button>
-                    <button onClick={() => setShowStopWorkoutConfirmation(false)} className="btn btn-secondary">No</button>
-                </div>
-            )}
-        </div>
+            <Modal show={showStopWorkoutConfirmation} onHide={() => setShowStopWorkoutConfirmation(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Stop Workout</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Are you sure you want to stop the workout?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowStopWorkoutConfirmation(false)}>No</Button>
+                    <Button variant="primary" onClick={confirmStopWorkout}>Yes</Button>
+                </Modal.Footer>
+            </Modal>
+
+            {showExercisesModal && <ExercisesModal handleClose={() => setShowExercisesModal(false)} />}
+        </Container>
     );
 };
 

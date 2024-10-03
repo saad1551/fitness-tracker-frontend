@@ -1,0 +1,78 @@
+/* General Styles */
+body {
+    background-color: #f0f2f5; /* Light background for contrast */
+    font-family: 'Arial', sans-serif; /* Modern font */
+}
+
+/* Heading Styles */
+h2 {
+    color: #343a40; /* Dark color for main headings */
+    font-size: 2.5rem; /* Increase font size for better visibility */
+    margin-bottom: 1rem; /* Space below the heading */
+}
+
+h4 {
+    color: #6c757d; /* Muted color for subheadings */
+    font-size: 1.5rem; /* Medium size for subheadings */
+}
+
+/* Button Styles */
+button {
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for button hover effects */
+}
+
+button:hover {
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+/* Card Styles */
+.card {
+    border: none; /* Remove default border */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.card-title {
+    font-size: 1.25rem; /* Increase font size for card titles */
+    font-weight: bold; /* Bold titles for emphasis */
+}
+
+.card-body {
+    background-color: #ffffff; /* White background for card body */
+}
+
+/* Chart Styles */
+.mt-4 {
+    margin-top: 1.5rem !important; /* Override margin for spacing */
+}
+
+/* Loader Styles */
+.loader-container {
+    text-align: center; /* Center loader */
+    margin-top: 50px; /* Space above loader */
+}
+
+/* Statistics Row Styles */
+.statistics-row {
+    margin-top: 20px; /* Space above statistics row */
+}
+
+/* Active Tab Button Styles */
+.active-tab {
+    background-color: #007bff !important; /* Bootstrap primary color */
+    color: white !important; /* White text for active tab */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 2rem; /* Adjust heading size for smaller screens */
+    }
+
+    h4 {
+        font-size: 1.2rem; /* Adjust subheading size for smaller screens */
+    }
+
+    .card-title {
+        font-size: 1.1rem; /* Adjust card title size for smaller screens */
+    }
+}

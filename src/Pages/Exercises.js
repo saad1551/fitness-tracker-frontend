@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ExerciseModal from '../Components/ExerciseModal';
 import { useMediaQuery } from 'react-responsive';
-import './Exercises.css'; // Import the CSS file for responsiveness
+import './Exercises.css';
 
 const Exercises = () => {
     const [exerciseData, setExerciseData] = useState([]);
@@ -20,7 +20,6 @@ const Exercises = () => {
     const [showModal, setShowModal] = useState(false);
     const [exercise, setExercise] = useState(null);
 
-    // Media query to detect mobile view
     const isMobileView = useMediaQuery({ query: '(max-width: 768px)' });
 
     const columns = [
@@ -55,7 +54,7 @@ const Exercises = () => {
             sortable: false,
             maxWidth: "150px",
         },
-    ].filter(Boolean); // Filters out undefined columns (in this case, "Body Part" on mobile)
+    ].filter(Boolean);
 
     useEffect(() => {
         const getBodyParts = async () => {
@@ -123,19 +122,15 @@ const Exercises = () => {
     };
 
     return (
-        <div>
+        <div className="exercises-container">
             {showModal && <ExerciseModal exercise={exercise} handleClose={() => setShowModal(false)} />}
-            <ButtonGroup aria-label="Basic example">
+            <ButtonGroup aria-label="Basic example" className="mb-3">
                 {bodyPartList.map((part, index) => (
                     <Button
                         key={index}
                         onClick={(e) => handleToggle(e, part)}
-                        variant="secondary"
-                        style={{
-                            color: selectedBodyPart === part ? "blue" : "gray",
-                            backgroundColor: selectedBodyPart === part ? "lightblue" : "lightgray",
-                            borderColor: selectedBodyPart === part ? "blue" : "gray"
-                        }}
+                        variant="outline-primary"
+                        className={`exercise-button ${selectedBodyPart === part ? 'active' : ''}`}
                     >
                         {part.toUpperCase()}
                     </Button>
@@ -147,7 +142,7 @@ const Exercises = () => {
                 placeholder="Search exercises..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                style={{ marginBottom: '20px', padding: '10px', width: '100%' }}
+                className="exercises-search-input"
             />
 
             {isLoading && <Loader />}
@@ -159,6 +154,7 @@ const Exercises = () => {
                 pointerOnHover
                 responsive
                 onRowClicked={handleRowClick}
+                className="data-table"
             />
         </div>
     );

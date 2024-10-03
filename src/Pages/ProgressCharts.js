@@ -5,6 +5,7 @@ import Loader from '../Components/Loader';
 import { toast } from 'react-toastify';
 import { Bar } from 'react-chartjs-2'; // Importing the Chart.js Bar component
 import 'chart.js/auto'; // Ensure you have chart.js auto imported
+import './ProgressCharts.css'; // Import the CSS file for styles
 
 const ProgressCharts = () => {
   const [loading, setLoading] = useState(true);
@@ -47,7 +48,7 @@ const ProgressCharts = () => {
     }
 
     return (
-      <Row className="text-center mt-4">
+      <Row className="text-center statistics-row">
         <Col>
           <Card>
             <Card.Body>
@@ -130,25 +131,25 @@ const ProgressCharts = () => {
       )}
 
       {/* Loader */}
-      {loading ? <Loader /> : null}
+      {loading ? <div className="loader-container"><Loader /></div> : null}
 
       {/* Toggle buttons for weekly, monthly, yearly */}
       <div className="d-flex justify-content-center mt-4">
         <Button
-          variant={activeTab === 'thisWeek' ? 'primary' : 'secondary'}
+          variant={activeTab === 'thisWeek' ? 'primary active-tab' : 'secondary'}
           onClick={() => setActiveTab('thisWeek')}
         >
           Weekly Stats
         </Button>
         <Button
-          variant={activeTab === 'thisMonth' ? 'primary' : 'secondary'}
+          variant={activeTab === 'thisMonth' ? 'primary active-tab' : 'secondary'}
           onClick={() => setActiveTab('thisMonth')}
           className="mx-2"
         >
           Monthly Stats
         </Button>
         <Button
-          variant={activeTab === 'thisYear' ? 'primary' : 'secondary'}
+          variant={activeTab === 'thisYear' ? 'primary active-tab' : 'secondary'}
           onClick={() => setActiveTab('thisYear')}
         >
           Yearly Stats

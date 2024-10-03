@@ -2,6 +2,7 @@
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa; /* Add a light background for the page */
 }
 
 .landing-page {
@@ -9,26 +10,30 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  background-color: #ffffff; /* White background for contrast */
+  padding-bottom: 50px;
 }
 
 /* Hero Section */
 .hero-section {
-  background-color: #f8f9fa;
-  padding: 50px 20px;
+  background-color: #007bff; /* Primary color */
+  padding: 80px 20px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  flex-wrap: wrap; /* Makes the section wrap for responsiveness */
+  flex-wrap: wrap;
+  color: white; /* White text for contrast */
 }
 
 .hero-content {
   max-width: 600px;
-  margin-bottom: 20px; /* Add margin for mobile spacing */
+  margin-bottom: 20px;
 }
 
 .hero-content h1 {
   font-size: 48px;
   margin-bottom: 20px;
+  color: white; /* Make the heading stand out */
 }
 
 .hero-content p {
@@ -37,63 +42,75 @@ body {
 }
 
 .cta-button {
-  padding: 10px 20px;
+  padding: 12px 24px;
   font-size: 18px;
-  color: white;
-  background-color: #007bff;
+  color: #007bff;
+  background-color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .cta-button:hover {
   background-color: #0056b3;
+  color: white;
 }
 
 .hero-image img {
-  max-width: 400px; /* Limit max width for responsiveness */
-  width: 100%; /* Ensures responsiveness */
+  max-width: 450px; /* Increased width for better impact */
+  width: 100%;
   height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
 }
 
 /* Features Section */
 .features-section {
-  background-color: #fff;
-  padding: 50px 20px;
+  background-color: #f8f9fa;
+  padding: 60px 20px;
+  width: 100%;
 }
 
 .features-section h2 {
   font-size: 36px;
   margin-bottom: 40px;
+  color: #333;
 }
 
 .features {
   display: flex;
   justify-content: space-around;
   gap: 20px;
-  flex-wrap: wrap; /* Ensure wrapping for smaller screens */
+  flex-wrap: wrap;
 }
 
 .feature-item {
   max-width: 300px;
   padding: 20px;
-  background-color: #f8f9fa;
+  background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px; /* Add margin for better spacing on mobile */
+  margin-bottom: 20px;
 }
 
 .feature-item h3 {
   font-size: 24px;
   margin-bottom: 10px;
+  color: #007bff;
+}
+
+.feature-item p {
+  font-size: 16px;
+  color: #666;
 }
 
 /* Call-to-Action Section */
 .cta-section {
   background-color: #007bff;
   color: white;
-  padding: 50px 20px;
+  padding: 60px 20px;
+  width: 100%;
 }
 
 .cta-section h2 {
@@ -104,7 +121,8 @@ body {
 .cta-section .cta-button {
   background-color: white;
   color: #007bff;
-  padding: 10px 30px;
+  padding: 12px 36px;
+  font-size: 18px;
 }
 
 .cta-section .cta-button:hover {
@@ -115,45 +133,41 @@ body {
 /* Responsive Styles */
 @media (max-width: 768px) {
   .hero-section {
-      flex-direction: column; /* Stack the content vertically */
-      text-align: center;
+    flex-direction: column;
+    text-align: center;
   }
 
   .hero-content h1 {
-      font-size: 36px; /* Decrease font size for better fit */
+    font-size: 36px;
   }
 
   .hero-content p {
-      font-size: 16px; /* Decrease paragraph size */
+    font-size: 16px;
   }
 
   .features {
-      flex-direction: column; /* Stack features vertically */
-  }
-
-  .feature-item {
-      max-width: 100%; /* Take full width on smaller screens */
+    flex-direction: column;
   }
 
   .hero-image img {
-      max-width: 300px; /* Reduce image size for tablets */
+    max-width: 350px;
   }
 }
 
 @media (max-width: 480px) {
   .hero-content h1 {
-      font-size: 28px; /* Further decrease font size */
+    font-size: 28px;
   }
 
   .hero-content p {
-      font-size: 14px; /* Decrease paragraph size */
+    font-size: 14px;
   }
 
   .hero-image img {
-      max-width: 250px; /* Limit image size on mobile */
+    max-width: 280px;
   }
 
   .cta-section h2 {
-      font-size: 28px; /* Decrease CTA section header */
+    font-size: 28px;
   }
 }

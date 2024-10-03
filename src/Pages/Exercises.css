@@ -1,16 +1,28 @@
 /* General container styles */
 .exercises-container {
     padding: 20px;
+    background-color: #f4f4f4; /* Light gray background */
+    border-radius: 10px; /* Rounded corners for the container */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
-button {
+/* Button Group Styles */
+.exercise-button {
     margin: 5px;
     font-size: 16px;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s; /* Added transform for scaling effect */
+    border-radius: 5px; /* Rounded corners for buttons */
 }
 
-button:focus {
-    outline: none;
+.exercise-button.active {
+    background-color: #007bff; /* Primary button color */
+    color: white; /* White text for active button */
+    transform: scale(1.05); /* Slightly increase size for active button */
+}
+
+.exercise-button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+    color: white; /* Keep text white on hover */
 }
 
 /* Search input styling */
@@ -20,6 +32,44 @@ button:focus {
     width: 100%;
     font-size: 16px;
     box-sizing: border-box;
+    border: 1px solid #ced4da; /* Light border */
+    border-radius: 5px; /* Rounded corners for input */
+    transition: border-color 0.3s; /* Smooth transition for border color */
+}
+
+.exercises-search-input:focus {
+    border-color: #007bff; /* Change border color on focus */
+    outline: none; /* Remove outline */
+}
+
+/* DataTable image styling */
+.data-table-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px; /* Rounded corners for images */
+}
+
+/* Responsive Button Group */
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/* Data Table Styling */
+.data-table {
+    border-radius: 10px; /* Rounded corners for the table */
+    overflow: hidden; /* Hide overflow */
+}
+
+.data-table .rdt_Table {
+    border: none; /* Remove table border */
+}
+
+.data-table .rdt_TableHeader {
+    background-color: #007bff; /* Header background color */
+    color: white; /* Header text color */
 }
 
 /* Modal styling for responsiveness */
@@ -33,41 +83,10 @@ button:focus {
     border-radius: 10px;
 }
 
-/* DataTable image styling */
-.data-table-image {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-}
-
-/* Responsive Button Group */
-.btn-group {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-
-/* Responsive table wrapper */
-.table-responsive {
-    width: 100%;
-    overflow-x: auto;
-}
-
-/* Ensure table is responsive */
-.data-table {
-    width: 100%;
-    min-width: 100%;
-}
-
 /* Media Queries */
 @media (max-width: 768px) {
     .btn-group {
         flex-direction: column;
-    }
-
-    .cta-button {
-        font-size: 14px;
-        padding: 8px 15px;
     }
 
     .exercises-search-input {
@@ -75,7 +94,6 @@ button:focus {
         padding: 8px;
     }
 
-    /* Adjust image size for smaller screens */
     .data-table-image {
         width: 80px;
         height: 80px;
@@ -83,11 +101,6 @@ button:focus {
 }
 
 @media (max-width: 480px) {
-    .cta-button {
-        font-size: 12px;
-        padding: 6px 10px;
-    }
-
     .exercises-search-input {
         font-size: 12px;
     }

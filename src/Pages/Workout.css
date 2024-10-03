@@ -1,0 +1,77 @@
+/* General styles for the workout page */
+body {
+    background-color: #f7f9fc; /* Light background for contrast */
+    font-family: 'Arial', sans-serif; /* Modern font */
+}
+
+/* Title styling */
+h3 {
+    font-size: 2rem; /* Increase font size for title */
+    margin-bottom: 1rem;
+    color: #007bff; /* Bootstrap primary color */
+}
+
+/* Timer styling */
+.timer {
+    background-color: #ffffff; /* White background for the timer section */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 20px; /* Padding for spacing */
+    margin: 20px 0; /* Margin for spacing */
+}
+
+.timer-display {
+    font-size: 4rem; /* Larger font size for timer display */
+    font-weight: bold; /* Bold text */
+    color: #28a745; /* Success color for the timer */
+}
+
+/* DataTable styling */
+.data-table {
+    margin-top: 20px; /* Margin for spacing */
+}
+
+/* Button styles */
+button {
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for button hover effects */
+}
+
+button:hover {
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+/* Modal styling */
+.modal-header {
+    background-color: #007bff; /* Primary color for modal header */
+    color: white; /* White text for header */
+}
+
+.modal-body {
+    font-size: 1.2rem; /* Increased font size for readability */
+}
+
+/* Additional spacing for buttons */
+.mt-3 {
+    margin-top: 1rem !important; /* Override margin for buttons */
+}
+
+/* Styling for exercise images in DataTable */
+img {
+    border-radius: 8px; /* Rounded corners for images */
+    transition: transform 0.3s ease; /* Transition for hover effect */
+}
+
+img:hover {
+    transform: scale(1.1); /* Slight zoom on hover */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .timer-display {
+        font-size: 3rem; /* Adjust font size for smaller screens */
+    }
+
+    h3 {
+        font-size: 1.5rem; /* Adjust title size for smaller screens */
+    }
+}
