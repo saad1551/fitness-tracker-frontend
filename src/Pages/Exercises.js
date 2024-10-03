@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import DataTable from 'react-data-table-component';
 import Loader from '../Components/Loader';
-import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 import ExerciseModal from '../Components/ExerciseModal';
 import { useMediaQuery } from 'react-responsive';
 import './Exercises.css';
@@ -14,7 +14,6 @@ const Exercises = () => {
     const [bodyPart, setBodyPart] = useState("back");
     const [isLoading, setIsLoading] = useState(false);
     const [bodyPartList, setBodyPartList] = useState([]);
-    const [selectedBodyPart, setSelectedBodyPart] = useState("back");
     const [search, setSearch] = useState("");
     const [filteredData, setFilteredData] = useState([]);
     const [showModal, setShowModal] = useState(false);
@@ -111,9 +110,8 @@ const Exercises = () => {
         setFilteredData(result);
     }, [search, exerciseData]);
 
-    const handleToggle = (e, bodyPart) => {
-        setSelectedBodyPart(bodyPart);
-        setBodyPart(bodyPart);
+    const handleBodyPartSelect = (part) => {
+        setBodyPart(part);
     };
 
     const handleRowClick = (row) => {
@@ -124,26 +122,30 @@ const Exercises = () => {
     return (
         <div className="exercises-container">
             {showModal && <ExerciseModal exercise={exercise} handleClose={() => setShowModal(false)} />}
-            <ButtonGroup aria-label="Basic example" className="mb-3">
-                {bodyPartList.map((part, index) => (
-                    <Button
-                        key={index}
-                        onClick={(e) => handleToggle(e, part)}
-                        variant="outline-primary"
-                        className={`exercise-button ${selectedBodyPart === part ? 'active' : ''}`}
-                    >
-                        {part.toUpperCase()}
-                    </Button>
-                ))}
-            </ButtonGroup>
 
-            <input
-                type="text"
-                placeholder="Search exercises..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="exercises-search-input"
-            />
+            <div className="exercises-search-container">
+                <input
+                    type="text"
+                    placeholder="Search exercises..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="exercises-search-input"
+                />
+
+                <DropdownButton
+                    id="dropdown-basic-button"
+                    title={bodyPart.toUpperCase()}
+                    variant="outline-primary"
+                    className="body-part-dropdown"
+                    drop="end" // Makes dropdown open to the right
+                >
+                    {bodyPartList.map((part, index) => (
+                        <Dropdown.Item key={index} onClick={() => handleBodyPartSelect(part)}>
+                            {part.toUpperCase()}
+                        </Dropdown.Item>
+                    ))}
+                </DropdownButton>
+            </div>
 
             {isLoading && <Loader />}
             <DataTable

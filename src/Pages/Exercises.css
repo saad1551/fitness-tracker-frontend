@@ -110,3 +110,27 @@
         height: 60px;
     }
 }
+
+
+/* Flex container for search and dropdown */
+.exercises-search-container {
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: space-between; /* Space between elements */
+    margin-bottom: 1rem; /* Space below */
+}
+
+/* Style for the search input */
+.exercises-search-input {
+    width: 70%; /* Adjust width as needed */
+    padding: 0.5rem; /* Padding for input */
+    border: 1px solid #ced4da; /* Border color */
+    border-radius: 0.25rem; /* Rounded corners */
+    font-size: 1rem; /* Font size */
+}
+
+/* Style for the body part dropdown */
+.body-part-dropdown {
+    margin-left: 1rem; /* Space between input and dropdown */
+    padding: 0.5rem; /* Padding for button */
+}
