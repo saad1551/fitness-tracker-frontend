@@ -13,7 +13,6 @@ import { setWorkoutStatus } from '../slices/workoutSlice';
 import { Button, Modal, Container, Row, Col } from 'react-bootstrap';
 import './Workout.css'; // Make sure the path is correct based on your folder structure
 
-
 const Workout = ({ workoutId, dashboardKey, setDashboardKey }) => {
     const [workoutName, setWorkoutName] = useState("");
     const [exercises, setExercises] = useState([]);
@@ -54,20 +53,23 @@ const Workout = ({ workoutId, dashboardKey, setDashboardKey }) => {
         getWorkoutDetails();
     }, [workoutId, componentKey]);
 
+    // Called when an exercise is clicked
     const handleExerciseClick = (exercise) => {
         if (!setOngoing) {
-            setSelectedExercise(exercise);
-            setShowStartSetModal(true);
+            setSelectedExercise(exercise); // Set the selected exercise
+            reset(); // Reset timer when starting a new set
+            setShowStartSetModal(true); // Show the start modal after selecting an exercise
+        } else {
+            toast.warning("You already have an ongoing set. Please complete it before starting another.");
         }
     };
 
+    // Called when stopping the current set
     const handleStop = () => {
         dispatch(setSetStatus(false));
         setShowLogSetModal(true);
         pause();
-        localStorage.removeItem('setOngoing');
-        localStorage.removeItem('timerMinutes');
-        localStorage.removeItem('timerSeconds');
+        reset(); // Reset the timer when stopping a set
     };
 
     const handleStopWorkoutClick = () => {
@@ -114,8 +116,27 @@ const Workout = ({ workoutId, dashboardKey, setDashboardKey }) => {
     return (
         <Container className="my-4">
             {isLoading && <Loader />}
-            {showLogSetModal && <LogSetModal componentKey={componentKey} setComponentKey={setComponentKey} minutes={minutes} seconds={seconds} />}
-            {showStartSetModal && selectedExercise && <StartSetModal exercise={selectedExercise} handleClose={() => setShowStartSetModal(false)} />}
+            {showLogSetModal && (
+                <LogSetModal
+                    componentKey={componentKey}
+                    setComponentKey={setComponentKey}
+                    minutes={minutes}
+                    seconds={seconds}
+                    resetTimer={reset}  // Pass reset function to reset the timer after a set is logged
+                    handleSetLogged={() => {
+                        setShowLogSetModal(false);
+                        dispatch(setSetStatus(false));  // Reset the setOngoing status when the set is logged
+                        setSelectedExercise(null);  // Clear the selected exercise after logging the set
+                    }}
+                    exercise={selectedExercise}
+                />
+            )}
+            {showStartSetModal && selectedExercise && (
+                <StartSetModal
+                    exercise={selectedExercise}
+                    handleClose={() => setShowStartSetModal(false)}
+                />
+            )}
             
             <Row className="justify-content-center">
                 <Col xs={12} md={6} className="text-center">

@@ -1,0 +1,65 @@
+/* Container for the two-column layout */
+.dashboard-container {
+    display: flex;
+    height: 100vh; /* Full viewport height */
+  }
+  
+  /* Left-side dashboard navigation (Tabs) */
+  .dashboard-tabs {
+    width: 250px; /* Set the width of the left sidebar */
+    background-color: #f8f9fa; /* Light background */
+    padding: 20px; /* Add padding for better spacing */
+    border-right: 1px solid #e0e0e0; /* Divider */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .dashboard-tabs .nav-tabs {
+    border-bottom: none; /* Remove bottom border of tabs */
+  }
+  
+  .dashboard-tabs .nav-link {
+    text-align: left;
+    padding: 10px 15px;
+    color: #333;
+    font-weight: 500;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: background-color 0.2s ease;
+  }
+  
+  .dashboard-tabs .nav-link.active {
+    background-color: #007bff; /* Active tab background */
+    color: white;
+  }
+  
+  .dashboard-tabs .nav-link:hover {
+    background-color: #e7f0ff; /* On hover background */
+    color: #007bff;
+  }
+  
+  /* Right-side content for each tab */
+  .dashboard-content {
+    flex-grow: 1;
+    padding: 30px;
+    overflow-y: auto;
+    background-color: #fff; /* White background */
+  }
+  
+  /* Responsiveness: For smaller screens */
+  @media (max-width: 768px) {
+    .dashboard-container {
+      flex-direction: column;
+    }
+  
+    .dashboard-tabs {
+      width: 100%; /* Full width on small screens */
+      border-right: none;
+      border-bottom: 1px solid #e0e0e0;
+    }
+  
+    .dashboard-content {
+      padding: 20px;
+    }
+  }
+  

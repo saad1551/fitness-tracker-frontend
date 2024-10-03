@@ -8,7 +8,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import Loader from '../Components/Loader';
 import { useNavigate } from 'react-router-dom';
-
+import './CompleteRegistration.css';
 
 const initialState = {
     phone: '',
@@ -18,9 +18,7 @@ const initialState = {
 
 const CompleteRegistration = () => {
     const [formData, setFormData] = useState(initialState);
-
     const [isLoading, setIsLoading] = useState(false);
-
     const navigate = useNavigate('/');
 
     const handleChange = (e) => {
@@ -31,10 +29,8 @@ const CompleteRegistration = () => {
         });
     };
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData);
-
         const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
         try {
@@ -53,48 +49,70 @@ const CompleteRegistration = () => {
         setFormData(initialState);
     };
 
+    return (
+        <div className="registration-container">
+            <Logo />
+            {isLoading && <Loader />}
+            <Form onSubmit={(e) => handleSubmit(e)} className="registration-form">
+                <Form.Group as={Row} className="mb-3" controlId="formHorizontalPhone">
+                    <Form.Label column sm={3} className="form-label">
+                        Phone
+                    </Form.Label>
+                    <Col sm={9}>
+                        <Form.Control
+                            maxLength={12}
+                            minLength={12}
+                            type="text"
+                            placeholder="XXXX-XXXXXXX"
+                            name="phone"
+                            value={formData.phone}
+                            onChange={(e) => handleChange(e)}
+                            className="form-input"
+                        />
+                    </Col>
+                </Form.Group>
 
-  return (
-    <div className="d-flex flex-column justify-content-center align-items-center min-vh-100">
-        <Logo />
-        {isLoading && <Loader />}
-        <Form onSubmit={(e) => handleSubmit(e)}>
-            <Form.Group as={Row} className="mb-3" controlId="formHorizontalName">
-                <Form.Label column sm={3}>
-                Phone
-                </Form.Label>
-                <Col sm={9}>
-                <Form.Control maxLength={12} minLength={12} type="text" placeholder="XXXX-XXXXXXX" name="phone" value={formData.phone} onChange={(e) => handleChange(e)} />
-                </Col>
-            </Form.Group>
+                <Form.Group as={Row} className="mb-3" controlId="formHorizontalAge">
+                    <Form.Label column sm={3} className="form-label">
+                        Age
+                    </Form.Label>
+                    <Col sm={9}>
+                        <Form.Control
+                            type="number"
+                            placeholder="Age"
+                            name="age"
+                            value={formData.age}
+                            onChange={(e) => handleChange(e)}
+                            className="form-input"
+                        />
+                    </Col>
+                </Form.Group>
 
-            <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-                <Form.Label column sm={3}>
-                Age
-                </Form.Label>
-                <Col sm={9}>
-                <Form.Control type="number" placeholder="Age" name="age" value={formData.age} onChange={(e) => handleChange(e)} />
-                </Col>
-            </Form.Group>
+                <Form.Group as={Row} className="mb-3" controlId="formHorizontalWorkoutTime">
+                    <Form.Label column sm={3} className="form-label">
+                        Workout Time
+                    </Form.Label>
+                    <Col sm={9}>
+                        <Form.Control
+                            type="time"
+                            name="workout_time"
+                            value={formData.workout_time}
+                            onChange={(e) => handleChange(e)}
+                            className="form-input"
+                        />
+                    </Col>
+                </Form.Group>
 
-            <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
-                <Form.Label column sm={3}>
-                Workout Time
-                </Form.Label>
-                <Col sm={9}>
-                <Form.Control type="time" placeholder="Workout Time" name="workout_time" value={formData.workout_time} onChange={(e) => handleChange(e)} />
-                </Col>
-            </Form.Group>
-
-
-            <Form.Group as={Row} className="mb-3">
-                <Col sm={{ span: 10, offset: 2 }}>
-                <Button disabled={isLoading} type="submit">Complete Registraion</Button>
-                </Col>
-            </Form.Group>
-        </Form>
-    </div>
-  )
-}
+                <Form.Group as={Row} className="mb-3">
+                    <Col sm={{ span: 10, offset: 2 }} className="text-right">
+                        <Button disabled={isLoading} type="submit" className="submit-button">
+                            Complete Registration
+                        </Button>
+                    </Col>
+                </Form.Group>
+            </Form>
+        </div>
+    );
+};
 
 export default CompleteRegistration;

@@ -155,19 +155,63 @@ body {
 }
 
 @media (max-width: 480px) {
+  /* Adjust layout based on the example provided */
+  .hero-section {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 15px;
+  }
+
   .hero-content h1 {
     font-size: 28px;
+    margin-bottom: 15px;
   }
 
   .hero-content p {
     font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .cta-button {
+    padding: 10px 20px;
+    font-size: 16px;
   }
 
   .hero-image img {
     max-width: 280px;
+    margin-top: 15px;
+  }
+
+  .features-section {
+    padding: 40px 15px;
+  }
+
+  .features {
+    flex-direction: column;
+  }
+
+  .feature-item {
+    max-width: 100%;
+    margin-bottom: 20px;
+    padding: 15px;
+  }
+
+  .feature-item h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  .feature-item p {
+    font-size: 14px;
   }
 
   .cta-section h2 {
     font-size: 28px;
+  }
+
+  .cta-section .cta-button {
+    padding: 10px 28px;
+    font-size: 16px;
   }
 }

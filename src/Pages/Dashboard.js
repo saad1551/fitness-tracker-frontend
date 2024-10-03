@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchWorkoutStatus } from '../slices/workoutSlice';
 import WorkoutHistory from './WorkoutHistory';
 import ProgressCharts from './ProgressCharts';
+import './Dashboard.css'; // Import the CSS file for layout
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -20,35 +21,45 @@ function Dashboard() {
   useEffect(() => {
     // Fetch workout status from the server
     dispatch(fetchWorkoutStatus());
-  }, [dispatch]); // This runs only once on component mount
+  }, [dispatch]);
 
-  const [dashboardKey, setDashboardKey] = useState();
+  const [dashboardKey, setDashboardKey] = useState('home');
 
   return (
-    <Tabs
-      defaultActiveKey="home"
-      id="uncontrolled-tab-example"
-      className="mb-3"
-    >
-      <Tab eventKey="home" title="Home">
-        {!workoutOngoing ? <Exercises /> : <Workout dashboardKey={dashboardKey} setDashboardKey={setDashboardKey} workoutId={workoutId} />}
-      </Tab>
-      <Tab eventKey="workout_history" title="Workout History">
-        <WorkoutHistory />
-      </Tab>
-      <Tab eventKey="progress_charts" title="Progress Charts">
-        <ProgressCharts />
-      </Tab>
-      <Tab eventKey="profile" title="Profile">
-        <Profile />
-      </Tab>
-      <Tab eventKey="sign_out" title="Sign out">
-        <Link to="/signout" style={{ textDecoration: 'none', color: 'inherit' }}>
-            Signout
-        </Link>
-      </Tab>
+    <div className="dashboard-container">
+      {/* Left-side navigation (Tabs) */}
+      <div className="dashboard-tabs">
+        <Tabs
+          activeKey={dashboardKey}
+          onSelect={(k) => setDashboardKey(k)}
+          id="controlled-tab-example"
+          className="flex-column"
+        >
+          <Tab eventKey="home" title="Home">
+            {/* Empty Tab, the content will be shown on the right */}
+          </Tab>
+          <Tab eventKey="workout_history" title="Workout History" />
+          <Tab eventKey="progress_charts" title="Progress Charts" />
+          <Tab eventKey="profile" title="Profile" />
+          <Tab eventKey="sign_out" title="Sign out">
+            <Link to="/signout" style={{ textDecoration: 'none', color: 'inherit' }}>
+              Signout
+            </Link>
+          </Tab>
+        </Tabs>
+      </div>
 
-    </Tabs>
+      {/* Right-side content */}
+      <div className="dashboard-content">
+        {dashboardKey === 'home' && !workoutOngoing && <Exercises />}
+        {dashboardKey === 'home' && workoutOngoing && (
+          <Workout dashboardKey={dashboardKey} setDashboardKey={setDashboardKey} workoutId={workoutId} />
+        )}
+        {dashboardKey === 'workout_history' && <WorkoutHistory />}
+        {dashboardKey === 'progress_charts' && <ProgressCharts />}
+        {dashboardKey === 'profile' && <Profile />}
+      </div>
+    </div>
   );
 }
 

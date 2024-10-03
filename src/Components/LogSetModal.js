@@ -7,14 +7,14 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setSetStatus } from '../slices/workoutSlice';
 
-const LogSetModal = ({ minutes, seconds, componentKey, setComponentKey }) => {
+const LogSetModal = ({ minutes, seconds, componentKey, setComponentKey, resetTimer, handleSetLogged, exercise }) => {
     const [show, setShow] = useState(true);
     const [weight, setWeight] = useState(''); // Input state for weight (kgs)
     const [reps, setReps] = useState(''); // Input state for reps
     const [isLoading, setIsLoading] = useState(false);
 
-    const exerciseId = localStorage.getItem('ongoingExerciseId');
-    const exerciseName = localStorage.getItem('ongoingExerciseName');
+    const exerciseId = exercise._id;
+    const exerciseName = exercise.name;
 
     const dispatch = useDispatch();
 
@@ -35,6 +35,8 @@ const LogSetModal = ({ minutes, seconds, componentKey, setComponentKey }) => {
             return;
         }
 
+        resetTimer();
+
         const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
         try {
@@ -54,6 +56,8 @@ const LogSetModal = ({ minutes, seconds, componentKey, setComponentKey }) => {
                 const newComponentKey = componentKey + 1;
                 setComponentKey(newComponentKey);
             }
+
+            handleSetLogged();
         } catch (error) {
             setIsLoading(false);
             toast.error(error.response ? error.response.data.message : "Error logging set");
