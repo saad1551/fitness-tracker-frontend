@@ -13,20 +13,25 @@ import { setWorkoutStatus } from '../slices/workoutSlice';
 import { Button, Modal, Container, Row, Col } from 'react-bootstrap';
 import './Workout.css'; // Make sure the path is correct based on your folder structure
 
+
 const Workout = ({ workoutId, dashboardKey, setDashboardKey }) => {
+
+    const setOngoing = useSelector((state) => state.workout.setOngoing);
+    const onGoingExercise = useSelector((state) => state.workout.onGoingExercise);
+
     const [workoutName, setWorkoutName] = useState("");
     const [exercises, setExercises] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [showLogSetModal, setShowLogSetModal] = useState(false);
     const [showStartSetModal, setShowStartSetModal] = useState(false);
-    const [selectedExercise, setSelectedExercise] = useState(null);
+    const [selectedExercise, setSelectedExercise] = useState(onGoingExercise);
     const [showStopWorkoutConfirmation, setShowStopWorkoutConfirmation] = useState(false);
     const [componentKey, setComponentKey] = useState(0);
     const [showExercisesModal, setShowExercisesModal] = useState(false);
     
-    const setOngoing = useSelector((state) => state.workout.setOngoing);
-    const onGoingExercise = useSelector((state) => state.workout.onGoingExercise);
-    
+
+
+
     const dispatch = useDispatch();
 
     // Stopwatch hook

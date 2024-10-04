@@ -7,6 +7,7 @@ const initialState = {
   setOngoing: false,
   onGoingExercise: null,
   workoutId: null, // Add workoutId to the initial state
+  currentExercise: null
 };
 
 const workoutSlice = createSlice({
@@ -31,7 +32,7 @@ const workoutSlice = createSlice({
     },
     setOngoingExercise: (state, action) => {
         state.onGoingExercise = action.payload;
-    }
+    },
   },
 });
 

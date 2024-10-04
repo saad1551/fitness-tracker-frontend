@@ -13,7 +13,7 @@ const LogSetModal = ({ minutes, seconds, componentKey, setComponentKey, resetTim
     const [reps, setReps] = useState(''); // Input state for reps
     const [isLoading, setIsLoading] = useState(false);
 
-    const exerciseId = exercise._id;
+    const exerciseId = exercise.id;
     const exerciseName = exercise.name;
 
     const dispatch = useDispatch();
