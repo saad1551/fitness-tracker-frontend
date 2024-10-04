@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import DataTable from 'react-data-table-component';
 import Loader from '../Components/Loader';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
@@ -20,41 +19,11 @@ const Exercises = () => {
     const [showModal, setShowModal] = useState(false);
     const [exercise, setExercise] = useState(null);
 
-    const isMobileView = useMediaQuery({ query: '(max-width: 768px)' });
+    // Pagination state
+    const [currentPage, setCurrentPage] = useState(1);
+    const exercisesPerPage = 10;
 
-    const columns = [
-        {
-            name: 'Name',
-            selector: row => row.name.toUpperCase(),
-            sortable: true,
-            wrap: true,
-        },
-        !isMobileView && {
-            name: 'Body Part',
-            selector: row => row.bodyPart.toUpperCase(),
-            sortable: true,
-            wrap: true,
-        },
-        {
-            name: 'Equipment',
-            selector: row => row.equipment.toUpperCase(),
-            sortable: true,
-            wrap: true,
-        },
-        {
-            name: 'Target',
-            selector: row => row.target.toUpperCase(),
-            sortable: true,
-            wrap: true,
-        },
-        {
-            name: 'Image',
-            cell: row => <img src={row.gifUrl} alt="gif" className="data-table-image" />,
-            ignoreRowClick: true,
-            sortable: false,
-            maxWidth: "150px",
-        },
-    ].filter(Boolean);
+    const isMobileView = useMediaQuery({ query: '(max-width: 768px)' });
 
     useEffect(() => {
         const getBodyParts = async () => {
@@ -109,7 +78,14 @@ const Exercises = () => {
             );
         });
         setFilteredData(result);
+        setCurrentPage(1); // Reset to first page after filtering
     }, [search, exerciseData]);
+
+    // Pagination logic
+    const indexOfLastExercise = currentPage * exercisesPerPage;
+    const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
+    const currentExercises = filteredData.slice(indexOfFirstExercise, indexOfLastExercise);
+    const totalPages = Math.ceil(filteredData.length / exercisesPerPage);
 
     const handleBodyPartSelect = (part) => {
         setBodyPart(part);
@@ -118,6 +94,43 @@ const Exercises = () => {
     const handleRowClick = (row) => {
         setExercise(row);
         setShowModal(true);
+    };
+
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const goToFirstPage = () => {
+        setCurrentPage(1);
+    };
+
+    const goToLastPage = () => {
+        setCurrentPage(totalPages);
+    };
+
+    const goToNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    const goToPreviousPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    // Function to create pagination window
+    const getPaginationWindow = () => {
+        const windowSize = 5;
+        const start = Math.max(1, currentPage - Math.floor(windowSize / 2));
+        const end = Math.min(totalPages, start + windowSize - 1);
+
+        let pages = [];
+        for (let i = start; i <= end; i++) {
+            pages.push(i);
+        }
+        return pages;
     };
 
     return (
@@ -149,19 +162,37 @@ const Exercises = () => {
             </div>
 
             {isLoading && <Loader />}
-            {/* <DataTable
-                columns={columns}
-                data={filteredData}
-                pagination
-                highlightOnHover
-                pointerOnHover
-                responsive
-                onRowClicked={handleRowClick}
-                className="data-table"
-            /> */}
-            {filteredData && filteredData.map((exercise) => (
-                <ExerciseRow exercise={exercise} onStart={(exercise) => handleRowClick(exercise)} />
+
+            {!isLoading && currentExercises.map((exercise) => (
+                <ExerciseRow key={exercise.id} exercise={exercise} onStart={(exercise) => handleRowClick(exercise)} />
             ))}
+
+            {/* Pagination Controls */}
+            <div className="pagination">
+                <button onClick={goToFirstPage} disabled={currentPage === 1}>
+                    First
+                </button>
+                <button onClick={goToPreviousPage} disabled={currentPage === 1}>
+                    Previous
+                </button>
+
+                {getPaginationWindow().map((page) => (
+                    <button
+                        key={page}
+                        onClick={() => paginate(page)}
+                        className={page === currentPage ? 'active-page' : ''}
+                    >
+                        {page}
+                    </button>
+                ))}
+
+                <button onClick={goToNextPage} disabled={currentPage === totalPages}>
+                    Next
+                </button>
+                <button onClick={goToLastPage} disabled={currentPage === totalPages}>
+                    Last
+                </button>
+            </div>
         </div>
     );
 };
