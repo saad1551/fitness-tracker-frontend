@@ -8,6 +8,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import ExerciseModal from '../Components/ExerciseModal';
 import { useMediaQuery } from 'react-responsive';
 import './Exercises.css';
+import ExerciseRow from './ExerciseRow';
 
 const Exercises = () => {
     const [exerciseData, setExerciseData] = useState([]);
@@ -148,7 +149,7 @@ const Exercises = () => {
             </div>
 
             {isLoading && <Loader />}
-            <DataTable
+            {/* <DataTable
                 columns={columns}
                 data={filteredData}
                 pagination
@@ -157,7 +158,10 @@ const Exercises = () => {
                 responsive
                 onRowClicked={handleRowClick}
                 className="data-table"
-            />
+            /> */}
+            {filteredData && filteredData.map((exercise) => (
+                <ExerciseRow exercise={exercise} onStart={(exercise) => handleRowClick(exercise)} />
+            ))}
         </div>
     );
 };
