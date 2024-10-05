@@ -29,7 +29,7 @@
 .exercises-search-input {
     margin-bottom: 20px;
     padding: 10px;
-    width: 100%;
+    width: 70%; /* Adjust width as needed */
     font-size: 16px;
     box-sizing: border-box;
     border: 1px solid #ced4da; /* Light border */
@@ -42,19 +42,18 @@
     outline: none; /* Remove outline */
 }
 
-/* DataTable image styling */
-.data-table-image {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 5px; /* Rounded corners for images */
+/* Flex container for search and dropdown */
+.exercises-search-container {
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: space-between; /* Space between elements */
+    margin-bottom: 1rem; /* Space below */
 }
 
-/* Responsive Button Group */
-.btn-group {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+/* Style for the body part dropdown */
+.body-part-dropdown {
+    margin-left: 1rem; /* Space between input and dropdown */
+    padding: 0.5rem; /* Padding for button */
 }
 
 /* Data Table Styling */
@@ -72,6 +71,21 @@
     color: white; /* Header text color */
 }
 
+/* DataTable image styling */
+.data-table-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px; /* Rounded corners for images */
+}
+
+/* Responsive Button Group */
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
 /* Modal styling for responsiveness */
 .exercise-modal {
     width: 80%;
@@ -83,58 +97,7 @@
     border-radius: 10px;
 }
 
-/* Media Queries */
-@media (max-width: 768px) {
-    .btn-group {
-        flex-direction: column;
-    }
-
-    .exercises-search-input {
-        font-size: 14px;
-        padding: 8px;
-    }
-
-    .data-table-image {
-        width: 80px;
-        height: 80px;
-    }
-}
-
-@media (max-width: 480px) {
-    .exercises-search-input {
-        font-size: 12px;
-    }
-
-    .data-table-image {
-        width: 60px;
-        height: 60px;
-    }
-}
-
-
-/* Flex container for search and dropdown */
-.exercises-search-container {
-    display: flex;
-    align-items: center; /* Center vertically */
-    justify-content: space-between; /* Space between elements */
-    margin-bottom: 1rem; /* Space below */
-}
-
-/* Style for the search input */
-.exercises-search-input {
-    width: 70%; /* Adjust width as needed */
-    padding: 0.5rem; /* Padding for input */
-    border: 1px solid #ced4da; /* Border color */
-    border-radius: 0.25rem; /* Rounded corners */
-    font-size: 1rem; /* Font size */
-}
-
-/* Style for the body part dropdown */
-.body-part-dropdown {
-    margin-left: 1rem; /* Space between input and dropdown */
-    padding: 0.5rem; /* Padding for button */
-}
-
+/* Pagination */
 .pagination {
     display: flex;
     justify-content: center;
@@ -160,4 +123,64 @@
 .pagination .active-page {
     background-color: #007bff;
     color: white;
+}
+
+/* Loader Styles */
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+/* Total Exercises Card */
+.exercises-total-card {
+    background-color: #007bff;
+    color: white;
+    margin-bottom: 20px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.exercises-total-card .card-body {
+    padding: 20px;
+}
+
+.exercises-total-card .card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.exercises-total-card .card-text {
+    font-size: 1.2rem;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .btn-group {
+        flex-direction: column;
+    }
+
+    .exercises-search-input {
+        font-size: 14px;
+        padding: 8px;
+        width: 100%; /* Full width for smaller screens */
+    }
+
+    .data-table-image {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .exercises-search-input {
+        font-size: 12px;
+    }
+
+    .data-table-image {
+        width: 60px;
+        height: 60px;
+    }
 }

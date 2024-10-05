@@ -5,9 +5,9 @@ import Loader from '../Components/Loader';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import ExerciseModal from '../Components/ExerciseModal';
-// import { useMediaQuery } from 'react-responsive';
-import './Exercises.css';
+import Card from 'react-bootstrap/Card'; // Import Bootstrap Card
 import ExerciseRow from './ExerciseRow';
+import './Exercises.css'; // Import custom CSS
 
 const Exercises = () => {
     const [exerciseData, setExerciseData] = useState([]);
@@ -22,8 +22,6 @@ const Exercises = () => {
     // Pagination state
     const [currentPage, setCurrentPage] = useState(1);
     const exercisesPerPage = 10;
-
-    // const isMobileView = useMediaQuery({ query: '(max-width: 768px)' });
 
     useEffect(() => {
         const getBodyParts = async () => {
@@ -134,67 +132,78 @@ const Exercises = () => {
     };
 
     return (
-        <div className="exercises-container">
-            {showModal && <ExerciseModal exercise={exercise} handleClose={() => setShowModal(false)} />}
-
-            <div className="exercises-search-container">
-                <input
-                    type="text"
-                    placeholder="Search exercises..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    className="exercises-search-input"
-                />
-
-                <DropdownButton
-                    id="dropdown-basic-button"
-                    title={bodyPart.toUpperCase()}
-                    variant="outline-primary"
-                    className="body-part-dropdown"
-                    drop="end" // Makes dropdown open to the right
-                >
-                    {bodyPartList.map((part, index) => (
-                        <Dropdown.Item key={index} onClick={() => handleBodyPartSelect(part)}>
-                            {part.toUpperCase()}
-                        </Dropdown.Item>
-                    ))}
-                </DropdownButton>
-            </div>
-
-            {isLoading && <Loader />}
-
-            {!isLoading && currentExercises.map((exercise) => (
-                <ExerciseRow key={exercise.id} exercise={exercise} onStart={(exercise) => handleRowClick(exercise)} />
-            ))}
-
-            {/* Pagination Controls */}
-            <div className="pagination">
-                <button onClick={goToFirstPage} disabled={currentPage === 1}>
-                    First
-                </button>
-                <button onClick={goToPreviousPage} disabled={currentPage === 1}>
-                    Previous
-                </button>
-
-                {getPaginationWindow().map((page) => (
-                    <button
-                        key={page}
-                        onClick={() => paginate(page)}
-                        className={page === currentPage ? 'active-page' : ''}
-                    >
-                        {page}
-                    </button>
+            <div className="exercises-container">
+                {showModal && <ExerciseModal exercise={exercise} handleClose={() => setShowModal(false)} />}
+        
+                {/* Search and Total Exercises Container */}
+                <div className="search-card-container">
+                    <div className="exercises-search-container">
+                        <input
+                            type="text"
+                            placeholder="Search exercises..."
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            className="exercises-search-input"
+                        />
+        
+                        <DropdownButton
+                            id="dropdown-basic-button"
+                            title={bodyPart.toUpperCase()}
+                            variant="outline-primary"
+                            className="body-part-dropdown"
+                            drop="end"
+                        >
+                            {bodyPartList.map((part, index) => (
+                                <Dropdown.Item key={index} onClick={() => handleBodyPartSelect(part)}>
+                                    {part.toUpperCase()}
+                                </Dropdown.Item>
+                            ))}
+                        </DropdownButton>
+                    </div>
+        
+                    {/* Total Exercises Card */}
+                    <Card className="exercises-total-card">
+                        <Card.Body>
+                            <Card.Title>Total Exercises</Card.Title>
+                            <Card.Text>{exerciseData.length}</Card.Text>
+                        </Card.Body>
+                    </Card>
+                </div>
+        
+                {isLoading && <Loader />}
+        
+                {!isLoading && currentExercises.map((exercise) => (
+                    <ExerciseRow key={exercise.id} exercise={exercise} onStart={(exercise) => handleRowClick(exercise)} />
                 ))}
-
-                <button onClick={goToNextPage} disabled={currentPage === totalPages}>
-                    Next
-                </button>
-                <button onClick={goToLastPage} disabled={currentPage === totalPages}>
-                    Last
-                </button>
+        
+                {/* Pagination Controls */}
+                <div className="pagination">
+                    <button onClick={goToFirstPage} disabled={currentPage === 1}>
+                        First
+                    </button>
+                    <button onClick={goToPreviousPage} disabled={currentPage === 1}>
+                        Previous
+                    </button>
+        
+                    {getPaginationWindow().map((page) => (
+                        <button
+                            key={page}
+                            onClick={() => paginate(page)}
+                            className={page === currentPage ? 'active-page' : ''}
+                        >
+                            {page}
+                        </button>
+                    ))}
+        
+                    <button onClick={goToNextPage} disabled={currentPage === totalPages}>
+                        Next
+                    </button>
+                    <button onClick={goToLastPage} disabled={currentPage === totalPages}>
+                        Last
+                    </button>
+                </div>
             </div>
-        </div>
-    );
+        );
 };
 
 export default Exercises;
