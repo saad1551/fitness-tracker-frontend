@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { Bar } from 'react-chartjs-2'; // Importing the Chart.js Bar component
 import 'chart.js/auto'; // Ensure you have chart.js auto imported
 import './ProgressCharts.css'; // Import the CSS file for styles
+import PieChart from '../Components/PieChart';
 
 const ProgressCharts = () => {
   const [loading, setLoading] = useState(true);
@@ -48,6 +49,7 @@ const ProgressCharts = () => {
     }
 
     return (
+        <>
       <Row className="text-center statistics-row">
         <Col>
           <Card>
@@ -87,6 +89,8 @@ const ProgressCharts = () => {
           </Col>
         )}
       </Row>
+      <PieChart dataCounts={stats.pieChart} />
+      </>
     );
   };
 
