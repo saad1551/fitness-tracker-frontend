@@ -45,7 +45,7 @@ const LogSetModal = ({ minutes, seconds, componentKey, setComponentKey, resetTim
                 exercise_id: exerciseId,
                 weight: weight,
                 reps: reps,
-                timeTaken: `${minutes}: ${seconds}`
+                timeTaken: `${minutes}:${seconds}`
             });
 
             setIsLoading(false);

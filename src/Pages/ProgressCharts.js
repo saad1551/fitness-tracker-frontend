@@ -89,7 +89,8 @@ const ProgressCharts = () => {
           </Col>
         )}
       </Row>
-      <PieChart dataCounts={stats.pieChart} />
+      <PieChart metric="Exercise Count" dataCounts={stats.pieChart} />
+      <PieChart metric="Minutes Spent" dataCounts={stats.pieChartTime} />
       </>
     );
   };
