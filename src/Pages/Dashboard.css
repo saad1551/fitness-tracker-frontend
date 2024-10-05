@@ -7,36 +7,51 @@
 /* Left-side dashboard navigation (Tabs) */
 .dashboard-tabs {
     width: 250px; /* Set the width of the left sidebar */
-    background-color: rgb(27, 27, 72); /* Change sidebar background to black */
-    padding: 20px; /* Add padding for better spacing */
-    border-right: 1px solid #e0e0e0; /* Divider */
+    background-color: #28a745; /* Dark navy-blue background */
+    padding: 20px; /* Padding for better spacing */
     display: flex;
     flex-direction: column; /* Column layout for desktop */
 }
 
+/* Logo container */
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px; /* Space between logo and menu */
+}
+
+/* Tabs styling */
 .dashboard-tabs .nav-tabs {
     border-bottom: none; /* Remove bottom border of tabs */
 }
 
-/* Styling for navigation links */
 .dashboard-tabs .nav-link {
-    text-align: left;
+    display: flex;
+    align-items: center;
     padding: 10px 15px;
-    color: #fff; /* Change text color to white for better visibility */
+    color: #fff; /* White text for better visibility */
     font-weight: 500;
     border-radius: 5px;
-    margin-bottom: 10px; /* Space between links in desktop view */
+    margin-bottom: 10px; /* Space between links */
     transition: background-color 0.2s ease;
+    text-decoration: none; /* Remove underline */
 }
 
+/* Icon and text alignment */
+.dashboard-tabs .nav-link .icon {
+    margin-right: 10px; /* Space between icon and text */
+}
+
+/* Active tab styling */
 .dashboard-tabs .nav-link.active {
     background-color: #007bff; /* Active tab background */
     color: white;
+    border-radius: 8px; /* Rounded edges */
 }
 
+/* Hover effect for tabs */
 .dashboard-tabs .nav-link:hover {
-    background-color: #e7f0ff; /* On hover background */
-    color: #007bff;
+    background-color: #505080; /* Lighter background on hover */
+    color: #fff;
 }
 
 /* Right-side content for each tab */
@@ -44,33 +59,28 @@
     flex-grow: 1;
     padding: 30px;
     overflow-y: auto;
-    background-color: #fff; /* White background */
+    background-color: #fff; /* White background for content */
 }
 
 /* Responsiveness: For smaller screens */
 @media (max-width: 768px) {
     .dashboard-container {
         flex-direction: column; /* Stack items vertically */
-        height: auto; /* Allow height to adjust based on content */
+        height: auto; /* Adjust height based on content */
     }
 
     .dashboard-tabs {
         width: 100%; /* Full width on small screens */
-        border-right: none;
-        border-bottom: 1px solid #e0e0e0;
-        display: flex; /* Use flexbox for the tab layout */
-        flex-direction: row; /* Change to row for mobile */
+        padding: 5px; /* Adjust padding */
+        flex-direction: row; /* Row layout for mobile */
         justify-content: space-between; /* Space items evenly */
-        padding: 5px; /* Optional: add some padding */
     }
 
     .dashboard-tabs .nav-link {
-        margin: 0 5px; /* Horizontal margin for spacing */
+        margin: 0 5px;
         flex: 1; /* Allow links to grow equally */
-        text-align: center; /* Center the text for better alignment */
-        min-width: 80px; /* Minimum width for links to ensure they are clickable */
-        display: block; /* Ensure they display inline */
-        padding: 10px; /* Add padding to links for better touch targets */
+        text-align: center; /* Center text on mobile */
+        padding: 10px;
     }
 
     .dashboard-content {
