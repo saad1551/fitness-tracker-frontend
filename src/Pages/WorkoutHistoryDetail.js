@@ -39,7 +39,7 @@ const WorkoutHistoryDetail = ({ workout, onBack }) => {
                     <strong>{row.sets.length}</strong>
                     <details>
                         {row.sets.map((set, index) => (
-                            <p key={index}>Set {index + 1}: {set.weight} Kg, {set.reps} reps</p>
+                            <p key={index}>Set {index + 1}: {set.weight} Kg, {set.reps} reps ({set.timeTaken})</p>
                         ))}
                     </details>
                 </div>
