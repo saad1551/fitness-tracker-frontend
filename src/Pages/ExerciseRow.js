@@ -30,14 +30,14 @@ const ExerciseRow = ({ exercise, onStart }) => {
           {capitalizeFirstLetter(exercise.name)}
         </h3>
         <p className='exercise-subtitle'>
-          {capitalizeFirstLetter(exercise.bodyPart)} |{' '}
-          {capitalizeFirstLetter(exercise.equipment)}
+          <span className="tag">{capitalizeFirstLetter(exercise.bodyPart)}</span> {' '}
+          <span className="tag">{capitalizeFirstLetter(exercise.equipment)}</span>
         </p>
 
         {/* Target and secondary muscles */}
         <div className='muscle-info'>
           <p>
-            <strong>Target:</strong> {capitalizeFirstLetter(exercise.target)}
+            <strong>Target:</strong> <span className="tag">{capitalizeFirstLetter(exercise.target)}</span>
           </p>
           <p>
             <strong>Secondary Muscles:</strong>{' '}
@@ -50,7 +50,7 @@ const ExerciseRow = ({ exercise, onStart }) => {
         {/* Instructions - Initially hidden */}
         <div className='instructions-container'>
           <button className='arrow-button' onClick={toggleInstructions}>
-            {showInstructions ? '▲ Hide Instructions' : '▼ View Instructions'}
+            {showInstructions ? '▲' : '▼'}
           </button>
           <ul
             className={`instructions-list ${showInstructions ? 'visible' : ''}`}

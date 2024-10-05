@@ -5,7 +5,7 @@ import Loader from '../Components/Loader';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import ExerciseModal from '../Components/ExerciseModal';
-import { useMediaQuery } from 'react-responsive';
+// import { useMediaQuery } from 'react-responsive';
 import './Exercises.css';
 import ExerciseRow from './ExerciseRow';
 
@@ -23,7 +23,7 @@ const Exercises = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const exercisesPerPage = 10;
 
-    const isMobileView = useMediaQuery({ query: '(max-width: 768px)' });
+    // const isMobileView = useMediaQuery({ query: '(max-width: 768px)' });
 
     useEffect(() => {
         const getBodyParts = async () => {
