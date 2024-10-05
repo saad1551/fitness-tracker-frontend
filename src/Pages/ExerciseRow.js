@@ -1,33 +1,16 @@
 import React, { useState } from 'react';
 import './ExerciseRow.css'; // Import CSS for styling
 
-const ExerciseRow = ({ exercise, onStart  }) => {
+const ExerciseRow = ({ exercise, onStart }) => {
   const [showInstructions, setShowInstructions] = useState(false); // State to toggle instructions
 
-//   const exercise = {
-//     bodyPart: 'back',
-//     equipment: 'cable',
-//     gifUrl: 'https://v2.exercisedb.io/image/9f8LeSpmfe4vYu',
-//     id: '0007',
-//     name: 'alternate lateral pulldown',
-//     target: 'lats',
-//     secondaryMuscles: ['biceps', 'rhomboids'],
-//     instructions: [
-//       'Sit on the cable machine with your back straight and feet flat on the ground.',
-//       'Grasp the handles with an overhand grip, slightly wider than shoulder-width apart.',
-//       'Lean back slightly and pull the handles towards your chest, squeezing your shoulder blades together.',
-//       'Pause for a moment at the peak of the movement, then slowly release the handles back to the starting position.',
-//       'Repeat for the desired number of repetitions.',
-//     ],
-//   };
-
   // Function to capitalize the first letter
-  const capitalizeFirstLetter = text => {
+  const capitalizeFirstLetter = (text) => {
     return text.charAt(0).toUpperCase() + text.slice(1);
   };
 
   const toggleInstructions = () => {
-    setShowInstructions(prevState => !prevState);
+    setShowInstructions((prevState) => !prevState);
   };
 
   return (
@@ -59,7 +42,7 @@ const ExerciseRow = ({ exercise, onStart  }) => {
           <p>
             <strong>Secondary Muscles:</strong>{' '}
             {exercise.secondaryMuscles
-              .map(muscle => capitalizeFirstLetter(muscle))
+              .map((muscle) => capitalizeFirstLetter(muscle))
               .join(', ')}
           </p>
         </div>
@@ -67,7 +50,7 @@ const ExerciseRow = ({ exercise, onStart  }) => {
         {/* Instructions - Initially hidden */}
         <div className='instructions-container'>
           <button className='arrow-button' onClick={toggleInstructions}>
-            {showInstructions ? '▲' : '▼'}
+            {showInstructions ? '▲ Hide Instructions' : '▼ View Instructions'}
           </button>
           <ul
             className={`instructions-list ${showInstructions ? 'visible' : ''}`}
@@ -81,7 +64,9 @@ const ExerciseRow = ({ exercise, onStart  }) => {
 
       {/* Action button - Start Exercise */}
       <div className='action-container'>
-        <button onClick={() => onStart(exercise)} className='start-button'>Start Exercise</button>
+        <button onClick={() => onStart(exercise)} className='start-button'>
+          Start Exercise
+        </button>
       </div>
     </div>
   );

@@ -7,7 +7,7 @@
 /* Left-side dashboard navigation (Tabs) */
 .dashboard-tabs {
     width: 250px; /* Set the width of the left sidebar */
-    background-color: black; /* Change sidebar background to black */
+    background-color: rgb(27, 27, 72); /* Change sidebar background to black */
     padding: 20px; /* Add padding for better spacing */
     border-right: 1px solid #e0e0e0; /* Divider */
     display: flex;
