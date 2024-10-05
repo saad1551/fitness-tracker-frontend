@@ -9,7 +9,7 @@ import Exercises from './Exercises';
 import Workout from './Workout';
 import WorkoutHistory from './WorkoutHistory';
 import ProgressCharts from './ProgressCharts';
-import Logo from '../Components/Logo'; // Import the Logo component
+import DashboardLogo from '../Components/DashboardLogo'; // Import the Logo component
 import './Dashboard.css'; // Import the CSS file for layout
 
 function Dashboard() {
@@ -32,7 +32,7 @@ function Dashboard() {
       <div className="dashboard-tabs">
         {/* Logo component at the top */}
         <div className="logo-container">
-          <Logo />
+          <DashboardLogo />
         </div>
         
         <Tabs

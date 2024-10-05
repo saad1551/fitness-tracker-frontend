@@ -7,7 +7,7 @@
 /* Left-side dashboard navigation (Tabs) */
 .dashboard-tabs {
     width: 250px; /* Set the width of the left sidebar */
-    background-color: #007bff; /* Dark navy-blue background */
+    background-color: #111828; /* Dark navy-blue background */
     padding: 20px; /* Padding for better spacing */
     display: flex;
     flex-direction: column; /* Column layout for desktop */
