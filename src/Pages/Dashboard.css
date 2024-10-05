@@ -2,64 +2,78 @@
 .dashboard-container {
     display: flex;
     height: 100vh; /* Full viewport height */
-  }
-  
-  /* Left-side dashboard navigation (Tabs) */
-  .dashboard-tabs {
+}
+
+/* Left-side dashboard navigation (Tabs) */
+.dashboard-tabs {
     width: 250px; /* Set the width of the left sidebar */
-    background-color: #f8f9fa; /* Light background */
+    background-color: black; /* Change sidebar background to black */
     padding: 20px; /* Add padding for better spacing */
     border-right: 1px solid #e0e0e0; /* Divider */
     display: flex;
-    flex-direction: column;
-  }
-  
-  .dashboard-tabs .nav-tabs {
+    flex-direction: column; /* Column layout for desktop */
+}
+
+.dashboard-tabs .nav-tabs {
     border-bottom: none; /* Remove bottom border of tabs */
-  }
-  
-  .dashboard-tabs .nav-link {
+}
+
+/* Styling for navigation links */
+.dashboard-tabs .nav-link {
     text-align: left;
     padding: 10px 15px;
-    color: #333;
+    color: #fff; /* Change text color to white for better visibility */
     font-weight: 500;
     border-radius: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 10px; /* Space between links in desktop view */
     transition: background-color 0.2s ease;
-  }
-  
-  .dashboard-tabs .nav-link.active {
+}
+
+.dashboard-tabs .nav-link.active {
     background-color: #007bff; /* Active tab background */
     color: white;
-  }
-  
-  .dashboard-tabs .nav-link:hover {
+}
+
+.dashboard-tabs .nav-link:hover {
     background-color: #e7f0ff; /* On hover background */
     color: #007bff;
-  }
-  
-  /* Right-side content for each tab */
-  .dashboard-content {
+}
+
+/* Right-side content for each tab */
+.dashboard-content {
     flex-grow: 1;
     padding: 30px;
     overflow-y: auto;
     background-color: #fff; /* White background */
-  }
-  
-  /* Responsiveness: For smaller screens */
-  @media (max-width: 768px) {
+}
+
+/* Responsiveness: For smaller screens */
+@media (max-width: 768px) {
     .dashboard-container {
-      flex-direction: column;
+        flex-direction: column; /* Stack items vertically */
+        height: auto; /* Allow height to adjust based on content */
     }
-  
+
     .dashboard-tabs {
-      width: 100%; /* Full width on small screens */
-      border-right: none;
-      border-bottom: 1px solid #e0e0e0;
+        width: 100%; /* Full width on small screens */
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+        display: flex; /* Use flexbox for the tab layout */
+        flex-direction: row; /* Change to row for mobile */
+        justify-content: space-between; /* Space items evenly */
+        padding: 5px; /* Optional: add some padding */
     }
-  
+
+    .dashboard-tabs .nav-link {
+        margin: 0 5px; /* Horizontal margin for spacing */
+        flex: 1; /* Allow links to grow equally */
+        text-align: center; /* Center the text for better alignment */
+        min-width: 80px; /* Minimum width for links to ensure they are clickable */
+        display: block; /* Ensure they display inline */
+        padding: 10px; /* Add padding to links for better touch targets */
+    }
+
     .dashboard-content {
-      padding: 20px;
+        padding: 20px;
     }
-  }
-  
+}
