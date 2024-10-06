@@ -48,7 +48,7 @@ function Dashboard() {
         
         <Tabs
           activeKey={dashboardKey}
-          onSelect={(k) => setDashboardKey(k)}
+          onSelect={(k) =>{setDashboardKey(k); setSidebarOpen(false) }}
           id="controlled-tab-example"
           className="flex-column"
         >
