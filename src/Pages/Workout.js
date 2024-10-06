@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import DataTable from 'react-data-table-component';
 import { useStopwatch } from 'react-timer-hook';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSetStatus } from '../slices/workoutSlice';
+import { setOngoingExercise, setSetStatus } from '../slices/workoutSlice';
 import LogSetModal from '../Components/LogSetModal';
 import StartSetModal from '../Components/StartSetModal';
 import ExercisesModal from '../Components/ExercisesModal';
@@ -57,6 +57,10 @@ const Workout = ({ workoutId, dashboardKey, setDashboardKey }) => {
 
         getWorkoutDetails();
     }, [workoutId, componentKey]);
+
+    useEffect(() => {
+        setSelectedExercise(onGoingExercise);
+    }, [onGoingExercise]);
 
     // Called when an exercise is clicked
     const handleExerciseClick = (exercise) => {

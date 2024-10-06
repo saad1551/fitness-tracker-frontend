@@ -24,7 +24,7 @@ const ExerciseModal = ({ handleClose, exercise }) => {
 
     const ongoingWorkoutId = localStorage.getItem('ongoingWorkoutId');
 
-    const handleStart = async(req, res) => {
+    const handleStart = async() => {
       const backendUrl = process.env.REACT_APP_BACKEND_URL;
           if (workoutOngoing) {
             const response = await axios.post(`${backendUrl}/api/workouts/startexercise`, {
@@ -36,9 +36,8 @@ const ExerciseModal = ({ handleClose, exercise }) => {
             setIsLoading(false);
 
             if (response.status === 201) {
-              toast.success("Workout started successfully");
               // Dispatch actions to update the Redux state
-              localStorage.setItem('ongoingExerciseId', response.data.exercise.id);
+              localStorage.setItem('ongoingExerciseId', response.data.exercise._id);
               localStorage.setItem('ongoingExerciseName', response.data.exercise.name);
               dispatch(setSetStatus(true));
               dispatch(setOngoingExercise(response.data.exercise));

@@ -31,8 +31,11 @@ const workoutSlice = createSlice({
         state.setOngoing = action.payload;
     },
     setOngoingExercise: (state, action) => {
-        state.onGoingExercise = action.payload;
-    },
+      console.log('Previous state:', state.onGoingExercise);
+      console.log('Payload:', action.payload);
+      state.onGoingExercise = { ...action.payload }; // Ensure a new object reference
+      console.log('Updated state:', state.onGoingExercise);
+  },
   },
 });
 
