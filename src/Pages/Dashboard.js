@@ -27,6 +27,7 @@ function Dashboard() {
 
   const [dashboardKey, setDashboardKey] = useState('home');
   const [isSidebarOpen, setSidebarOpen] = useState(false); // State to toggle sidebar
+  const [remountKey, setRemountKey] = useState(0);
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen); // Toggle sidebar open/close
@@ -64,7 +65,7 @@ function Dashboard() {
       <div className="dashboard-content" onClick={() => setSidebarOpen(false)}>
         {dashboardKey === 'home' && !workoutOngoing && <Exercises />}
         {dashboardKey === 'home' && workoutOngoing && (
-          <Workout dashboardKey={dashboardKey} setDashboardKey={setDashboardKey} workoutId={workoutId} />
+          <Workout dashboardRemountKey={remountKey} setDashboardRemountKey={setRemountKey} workoutId={workoutId} />
         )}
         {dashboardKey === 'workout_history' && <WorkoutHistory />}
         {dashboardKey === 'progress_charts' && <ProgressCharts />}
