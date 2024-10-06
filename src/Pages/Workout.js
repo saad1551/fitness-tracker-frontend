@@ -14,7 +14,7 @@ import { Button, Modal, Container, Row, Col } from 'react-bootstrap';
 import './Workout.css'; // Make sure the path is correct based on your folder structure
 
 
-const Workout = ({ workoutId, dashboardKey, setDashboardKey }) => {
+const Workout = ({ workoutId, dashboardRemountKey, setDashboardRemountKey }) => {
 
     const setOngoing = useSelector((state) => state.workout.setOngoing);
     const onGoingExercise = useSelector((state) => state.workout.onGoingExercise);
@@ -93,8 +93,8 @@ const Workout = ({ workoutId, dashboardKey, setDashboardKey }) => {
             if (response.status === 200) {
                 toast.success('Workout stopped successfully');
                 setShowStopWorkoutConfirmation(false);
-                const newDashboardKey = dashboardKey + 1;
-                setDashboardKey(newDashboardKey);
+                const newDashboardRemountKey = dashboardRemountKey + 1;
+                setDashboardRemountKey(newDashboardRemountKey);
                 dispatch(setWorkoutStatus(false));
             }
         } catch (error) {
