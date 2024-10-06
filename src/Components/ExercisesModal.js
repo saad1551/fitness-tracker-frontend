@@ -3,7 +3,7 @@ import { Modal } from 'react-bootstrap';
 import Exercises from '../Pages/Exercises'; // Import the Exercises page (or the relevant component)
 import Button from 'react-bootstrap/Button';
 
-const ExercisesModal = ({ handleClose }) => {
+const ExercisesModal = ({ handleClose, resetTimer, pauseTimer }) => {
     const [show, setShow] = useState(true);
     return (
         <Modal show={show} onHide={handleClose} size="lg">
@@ -12,7 +12,7 @@ const ExercisesModal = ({ handleClose }) => {
             </Modal.Header>
             <Modal.Body className="modal-body-scrollable">
                 <div className="table-responsive">
-                    <Exercises modalClose={handleClose} />
+                    <Exercises resetTimer={resetTimer} pauseTimer={pauseTimer} modalClose={handleClose} />
                 </div>
             </Modal.Body>
             <Modal.Footer>

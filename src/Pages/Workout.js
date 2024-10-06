@@ -192,7 +192,7 @@ const Workout = ({ workoutId, dashboardKey, setDashboardKey }) => {
                 </Modal.Footer>
             </Modal>
 
-            {showExercisesModal && <ExercisesModal handleClose={() => setShowExercisesModal(false)} />}
+            {showExercisesModal && <ExercisesModal resetTimer={reset} pauseTimer={pause} handleClose={() => setShowExercisesModal(false)} />}
         </Container>
     );
 };
