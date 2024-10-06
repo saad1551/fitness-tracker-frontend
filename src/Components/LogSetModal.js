@@ -7,11 +7,12 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setSetStatus } from '../slices/workoutSlice';
 
-const LogSetModal = ({ minutes, seconds, componentKey, setComponentKey, resetTimer, handleSetLogged, exercise }) => {
+const LogSetModal = ({ minutes, seconds, componentKey, setComponentKey, resetTimer, pauseTimer, handleSetLogged, handleCancel, exercise }) => {
     const [show, setShow] = useState(true);
     const [weight, setWeight] = useState(''); // Input state for weight (kgs)
     const [reps, setReps] = useState(''); // Input state for reps
     const [isLoading, setIsLoading] = useState(false);
+
 
     const exerciseId = exercise._id;
     const exerciseName = exercise.name;
@@ -27,6 +28,14 @@ const LogSetModal = ({ minutes, seconds, componentKey, setComponentKey, resetTim
     const handleRepsChange = (e) => {
         setReps(e.target.value);
     };
+
+    const handleCancelSet = () => {
+        if (window.confirm('Are you sure you do not want to log this set ?')) {
+            handleCancel();
+            resetTimer();
+            pauseTimer();
+        }
+    }
 
     // Function to log the set (submit)
     const handleLogSet = async () => {
@@ -98,10 +107,7 @@ const LogSetModal = ({ minutes, seconds, componentKey, setComponentKey, resetTim
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShow(false)}>
-                        Close
-                    </Button>
-                    <Button variant="danger" onClick={() => setShow(false)}>
+                    <Button variant="danger" onClick={handleCancelSet}>
                         Cancel
                     </Button>
                     <Button variant="primary" onClick={handleLogSet}>

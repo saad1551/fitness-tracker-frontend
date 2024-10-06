@@ -132,6 +132,12 @@ const Workout = ({ workoutId, dashboardKey, setDashboardKey }) => {
                     minutes={minutes}
                     seconds={seconds}
                     resetTimer={reset}  // Pass reset function to reset the timer after a set is logged
+                    pauseTimer={pause}
+                    handleCancel={() => {
+                        setShowLogSetModal(false);
+                        dispatch(setSetStatus(false));  // Reset the setOngoing status when the set is logged
+                        setSelectedExercise(null);  
+                    }}
                     handleSetLogged={() => {
                         setShowLogSetModal(false);
                         dispatch(setSetStatus(false));  // Reset the setOngoing status when the set is logged
