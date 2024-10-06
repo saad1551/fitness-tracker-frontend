@@ -2,15 +2,41 @@
 .dashboard-container {
     display: flex;
     height: 100vh; /* Full viewport height */
+    position: relative; /* Relative for burger menu positioning */
 }
 
 /* Left-side dashboard navigation (Tabs) */
 .dashboard-tabs {
-    width: 250px; /* Set the width of the left sidebar */
+    width: 250px; /* Sidebar width */
     background-color: #111828; /* Dark navy-blue background */
-    padding: 20px; /* Padding for better spacing */
+    padding: 20px;
     display: flex;
-    flex-direction: column; /* Column layout for desktop */
+    flex-direction: column;
+    transition: transform 0.3s ease-in-out; /* Smooth transition for sliding */
+}
+
+/* Hide sidebar on mobile */
+@media (max-width: 768px) {
+    .dashboard-tabs {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 1000;
+        transform: translateX(-100%); /* Sidebar hidden initially on mobile */
+    }
+
+    .dashboard-tabs.open {
+        transform: translateX(0); /* Slide in sidebar when open on mobile */
+    }
+}
+
+/* Show sidebar by default on desktop */
+@media (min-width: 769px) {
+    .dashboard-tabs {
+        transform: translateX(0); /* Sidebar always visible on desktop */
+        position: static; /* Normal flow on desktop */
+    }
 }
 
 /* Logo container */
@@ -21,66 +47,56 @@
 
 /* Tabs styling */
 .dashboard-tabs .nav-tabs {
-    border-bottom: none; /* Remove bottom border of tabs */
+    border-bottom: none;
 }
 
 .dashboard-tabs .nav-link {
     display: flex;
     align-items: center;
     padding: 10px 15px;
-    color: #fff; /* White text for better visibility */
+    color: #fff;
     font-weight: 500;
     border-radius: 5px;
-    margin-bottom: 10px; /* Space between links */
+    margin-bottom: 10px;
     transition: background-color 0.2s ease;
-    text-decoration: none; /* Remove underline */
-}
-
-/* Icon and text alignment */
-.dashboard-tabs .nav-link .icon {
-    margin-right: 10px; /* Space between icon and text */
+    text-decoration: none;
 }
 
 /* Active tab styling */
 .dashboard-tabs .nav-link.active {
-    background-color: #007bff; /* Active tab background */
+    background-color: #007bff;
     color: white;
-    border-radius: 8px; /* Rounded edges */
 }
 
 /* Hover effect for tabs */
 .dashboard-tabs .nav-link:hover {
-    background-color: #505080; /* Lighter background on hover */
+    background-color: #505080;
     color: #fff;
 }
 
-/* Right-side content for each tab */
+/* Right-side content */
 .dashboard-content {
     flex-grow: 1;
     padding: 30px;
     overflow-y: auto;
-    background-color: #fff; /* White background for content */
+    background-color: #fff;
 }
 
-/* Responsiveness: For smaller screens */
+/* Burger menu icon for mobile */
+.burger-menu-icon {
+    display: none;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    color: #111828;
+    cursor: pointer;
+}
+
+/* Show burger icon on mobile only */
 @media (max-width: 768px) {
-    .dashboard-container {
-        flex-direction: column; /* Stack items vertically */
-        height: auto; /* Adjust height based on content */
-    }
-
-    .dashboard-tabs {
-        width: 100%; /* Full width on small screens */
-        padding: 5px; /* Adjust padding */
-        flex-direction: row; /* Row layout for mobile */
-        justify-content: space-between; /* Space items evenly */
-    }
-
-    .dashboard-tabs .nav-link {
-        margin: 0 5px;
-        flex: 1; /* Allow links to grow equally */
-        text-align: center; /* Center text on mobile */
-        padding: 10px;
+    .burger-menu-icon {
+        display: block;
     }
 
     .dashboard-content {
