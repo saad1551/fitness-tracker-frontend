@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
+import ExerciseHistoryRow from './ExerciseHistoryRow';
 import './WorkoutHistoryDetail.css'; // Importing CSS for styling
 
 const WorkoutHistoryDetail = ({ workout, onBack }) => {
@@ -56,7 +57,7 @@ const WorkoutHistoryDetail = ({ workout, onBack }) => {
     return (
         <div className="workout-detail-container">
             <h2 className="workout-title">{workout.name}</h2>
-            {isLoading ? (
+            {/* {isLoading ? (
                 <p className="loading-message">Loading exercises...</p>
             ) : (
                 <DataTable 
@@ -66,7 +67,18 @@ const WorkoutHistoryDetail = ({ workout, onBack }) => {
                     highlightOnHover
                     className="exercise-table" // Added class for styling
                 />
+            )} */}
+            {isLoading ? (
+                <p className="loading-message">Loading exercises...</p>
+            ) : (
+                exercises.map((exercise) => (
+                    <ExerciseHistoryRow 
+                        key={exercise._id} // Provide a unique key for each component
+                        exercise={exercise} 
+                    />
+                ))
             )}
+
             <button onClick={onBack} className="btn btn-secondary back-button">Back to History</button>
         </div>
     );

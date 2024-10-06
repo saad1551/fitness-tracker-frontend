@@ -1,0 +1,63 @@
+.exercise-history-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .exercise-history-image-container {
+    flex: 1;
+  }
+  
+  .exercise-history-image {
+    width: 100px;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .exercise-history-info-container {
+    flex: 2;
+    padding-left: 10px;
+  }
+  
+  .exercise-history-title {
+    margin: 0;
+    font-size: 18px;
+  }
+  
+  .exercise-history-subtitle {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+  
+  .set-details-container {
+    margin-top: 10px;
+  }
+  
+  .arrow-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 3px 8px; /* Reduced padding */
+    border-radius: 5px;
+    font-size: 12px; /* Reduced font size */
+    cursor: pointer;
+  }
+  
+  
+  .set-details-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+  }
+  
+  .set-details-item {
+    padding: 5px;
+    background-color: #eaeaea;
+    margin-bottom: 5px;
+    border-radius: 5px;
+  }
+  
