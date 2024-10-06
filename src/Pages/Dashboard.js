@@ -10,6 +10,7 @@ import Workout from './Workout';
 import WorkoutHistory from './WorkoutHistory';
 import ProgressCharts from './ProgressCharts';
 import DashboardLogo from '../Components/DashboardLogo'; // Import the Logo component
+import SignOutPage from './SignOutPage';
 import './Dashboard.css'; // Import the CSS file for layout
 
 function Dashboard() {
@@ -48,9 +49,10 @@ function Dashboard() {
           <Tab eventKey="progress_charts" title="Progress Charts" />
           <Tab eventKey="profile" title="Profile" />
           <Tab eventKey="sign_out" title="Sign out">
-            <Link to="/signout" style={{ textDecoration: 'none', color: 'inherit' }}>
+            {/* <Link to="/signout" style={{ textDecoration: 'none', color: 'inherit' }}>
               Signout
-            </Link>
+            </Link> */}
+
           </Tab>
         </Tabs>
       </div>
@@ -64,6 +66,7 @@ function Dashboard() {
         {dashboardKey === 'workout_history' && <WorkoutHistory />}
         {dashboardKey === 'progress_charts' && <ProgressCharts />}
         {dashboardKey === 'profile' && <Profile />}
+        {dashboardKey === 'sign_out' && <SignOutPage handleCancel={() => {setDashboardKey('home')}} />}
       </div>
     </div>
   );

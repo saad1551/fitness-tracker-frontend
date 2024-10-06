@@ -1,0 +1,56 @@
+.signout-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+  }
+  
+  .signout-box {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  .signout-box h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .signout-box p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 30px;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .confirm-button, .cancel-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .confirm-button {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .cancel-button {
+    background-color: #6c757d;
+    color: white;
+  }
+  
+  .confirm-button:hover, .cancel-button:hover {
+    opacity: 0.9;
+  }
+  
