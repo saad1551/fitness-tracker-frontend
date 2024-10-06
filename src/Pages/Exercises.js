@@ -178,12 +178,24 @@ const Exercises = () => {
                         </Card.Body>
                     </Card> */}
 
-                    <div style={cardStyles}>
-                        <div style={{ padding: "20px" }}>
-                            <h2 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>Total Exercises</h2>
-                            <p style={{ fontSize: "1.2rem" }}>{exerciseData.length}</p>
+                    <div className={search !== '' ? 'cards' : ''}>
+                        <div style={{ ...cardStyles, marginRight: "10px" }}>
+                            <div style={{ padding: "20px" }}>
+                                <h2 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>Total Exercises</h2>
+                                <p style={{ fontSize: "1.2rem" }}>{exerciseData.length}</p>
+                            </div>
                         </div>
+                        {search !== '' &&           
+                        <div style={{ ...cardStyles, marginLeft: "10px" }}>
+                            <div style={{ padding: "20px" }}>
+                                <h2 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>Filtered Exercises</h2>
+                                <p style={{ fontSize: "1.2rem" }}>{filteredData.length}</p>
+                            </div>
+                        </div>}
+
                     </div>
+
+
                 </div>
         
                 {isLoading && <Loader />}
