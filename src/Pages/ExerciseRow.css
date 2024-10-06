@@ -13,15 +13,15 @@
 
 /* Image container */
 .exercise-image-container {
-  width: 100px;
-  height: 100px;
+  width: 220px; /* Increased width */
+  height: 220px; /* Increased height */
   border-radius: 8px;
   overflow: hidden;
 }
 
 .exercise-image {
-  width: 100%;
-  height: 100%;
+  width: 400px;
+  height: 400px;
   object-fit: cover;
 }
 
@@ -93,6 +93,7 @@
   color: #007bff;
   padding: 5px;
   transition: color 0.3s ease;
+  margin-bottom: 2px;
 }
 
 .arrow-button:hover {
@@ -114,7 +115,7 @@
   background-color: #218838;
 }
 
-/* Smaller button on mobile devices */
+/* Adjustments for mobile devices */
 @media (max-width: 768px) {
   .start-button {
     padding: 6px 10px; /* Reduce padding for smaller screens */
@@ -123,12 +124,17 @@
 
   .exercise-container {
     flex-direction: column; /* Stack content vertically on mobile */
-    align-items: flex-start; /* Align items to start */
+    align-items: center; /* Center items on mobile */
+  }
+
+  .exercise-image-container {
+    margin-bottom: 12px; /* Add margin below the image */
   }
 
   .exercise-info-container {
     margin-left: 0; /* Remove margin on mobile */
     margin-top: 10px;
+    text-align: center; /* Center text for mobile view */
   }
 
   .instructions-list {

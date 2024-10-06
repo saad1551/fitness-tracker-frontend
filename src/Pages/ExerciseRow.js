@@ -21,6 +21,7 @@ const ExerciseRow = ({ exercise, onStart }) => {
           src={exercise.gifUrl}
           alt={capitalizeFirstLetter(exercise.name)}
           className='exercise-image'
+          style={{width: "200px", height: "200px"}}
         />
       </div>
 
