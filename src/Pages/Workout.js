@@ -77,8 +77,8 @@ const Workout = ({ workoutId, dashboardKey, setDashboardKey }) => {
     const handleStop = () => {
         dispatch(setSetStatus(false));
         setShowLogSetModal(true);
+        reset();
         pause();
-        reset(); // Reset the timer when stopping a set
     };
 
     const handleStopWorkoutClick = () => {

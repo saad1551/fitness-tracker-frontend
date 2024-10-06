@@ -9,7 +9,7 @@ import Card from 'react-bootstrap/Card'; // Import Bootstrap Card
 import ExerciseRow from './ExerciseRow';
 import './Exercises.css'; // Import custom CSS
 
-const Exercises = () => {
+const Exercises = ({ modalClose }) => {
     const [exerciseData, setExerciseData] = useState([]);
     const [bodyPart, setBodyPart] = useState("back");
     const [isLoading, setIsLoading] = useState(false);
@@ -142,7 +142,7 @@ const Exercises = () => {
 
     return (
             <div className="exercises-container">
-                {showModal && <ExerciseModal exercise={exercise} handleClose={() => setShowModal(false)} />}
+                {showModal && <ExerciseModal modalClose={modalClose} exercise={exercise} handleClose={() => setShowModal(false)} />}
         
                 {/* Search and Total Exercises Container */}
                 <div className="search-card-container">

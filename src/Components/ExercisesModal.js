@@ -12,7 +12,7 @@ const ExercisesModal = ({ handleClose }) => {
             </Modal.Header>
             <Modal.Body className="modal-body-scrollable">
                 <div className="table-responsive">
-                    <Exercises />
+                    <Exercises modalClose={handleClose} />
                 </div>
             </Modal.Body>
             <Modal.Footer>

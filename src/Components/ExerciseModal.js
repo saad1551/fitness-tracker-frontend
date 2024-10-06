@@ -11,7 +11,7 @@ import { setOngoingExercise, setSetStatus } from '../slices/workoutSlice';
 
 
 
-const ExerciseModal = ({ handleClose, exercise }) => {
+const ExerciseModal = ({ handleClose, exercise, modalClose }) => {
     const [show, setShow] = useState(true);
 
     const [showStartWorkoutModal, setShowStartWorkoutModal] = useState(false);
@@ -43,6 +43,7 @@ const ExerciseModal = ({ handleClose, exercise }) => {
               dispatch(setOngoingExercise(response.data.exercise));
               toast.success(response.data.message);
               handleClose();
+              modalClose();
             }
         } else {
             setShowStartWorkoutModal(true);
