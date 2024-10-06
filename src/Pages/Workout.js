@@ -77,8 +77,6 @@ const Workout = ({ workoutId, dashboardRemountKey, setDashboardRemountKey }) => 
     const handleStop = () => {
         dispatch(setSetStatus(false));
         setShowLogSetModal(true);
-        reset();
-        pause();
     };
 
     const handleStopWorkoutClick = () => {
