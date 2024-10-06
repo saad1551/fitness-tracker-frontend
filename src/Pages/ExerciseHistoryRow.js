@@ -60,7 +60,7 @@ const ExerciseHistoryRow = ({ exercise }) => {
                   <p><strong>Set {index + 1}:</strong></p>
                   <p><strong>Weight:</strong> {set.weight} kg</p>
                   <p><strong>Reps:</strong> {set.reps}</p>
-                  <p><strong>Time Taken:</strong> {formatTimeTaken(set.timeTaken)}</p>
+                  <p><strong>Time Taken:</strong> {(set.timeTaken)}</p>
                 </li>
               ))}
             </ul>
