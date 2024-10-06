@@ -79,6 +79,15 @@ const Exercises = () => {
         setCurrentPage(1); // Reset to first page after filtering
     }, [search, exerciseData]);
 
+    const cardStyles = {
+        backgroundColor: "#111828",
+        color: "white",
+        marginBottom: "20px",
+        textAlign: "center",
+        borderRadius: "8px",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)"
+    }
+
     // Pagination logic
     const indexOfLastExercise = currentPage * exercisesPerPage;
     const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
@@ -161,13 +170,20 @@ const Exercises = () => {
                         </DropdownButton>
                     </div>
         
-                    {/* Total Exercises Card */}
-                    <Card className="exercises-total-card">
-                        <Card.Body>
-                            <Card.Title>Total Exercises</Card.Title>
-                            <Card.Text>{exerciseData.length}</Card.Text>
+                    {/* Total Exercises Card
+                    <Card style={cardStyles}>
+                        <Card.Body style={{padding: "20px"}}>
+                            <Card.Title style={{  fontSize: "1.5rem", fontWeight: "bold"}}>Total Exercises</Card.Title>
+                            <Card.Text style={{ fontSize: "1.2rem" }}>{exerciseData.length}</Card.Text>
                         </Card.Body>
-                    </Card>
+                    </Card> */}
+
+                    <div style={cardStyles}>
+                        <div style={{ padding: "20px" }}>
+                            <h2 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>Total Exercises</h2>
+                            <p style={{ fontSize: "1.2rem" }}>{exerciseData.length}</p>
+                        </div>
+                    </div>
                 </div>
         
                 {isLoading && <Loader />}
