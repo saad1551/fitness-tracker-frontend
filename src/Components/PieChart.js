@@ -40,17 +40,30 @@ const PieChart = ({ dataCounts, metric }) => {
     maintainAspectRatio: false, // Disable aspect ratio to control the size
     layout: {
       padding: {
-        top: 10,     // No padding at the top
-        right: 0,   // No padding at the right
-        bottom: 40, // 40px padding at the bottom
-        left: 0     // No padding at the left
+        top: 10,
+        right: 10,
+        bottom: 10,
+        left: 10
       },
-    }
+    },
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+    },
   };
 
   return (
-    <div style={{ paddingTop:'50px', width: '500px', height: '500px' }}> {/* Adjust width and height as needed */}
-      <h2>{metric}</h2>
+    <div style={{ 
+      overflow: "hidden", 
+      paddingTop: '20px', 
+      paddingBottom: '30px',
+      width: '100%',  // Set width to 100% to avoid overflow
+      maxWidth: '500px',  // Optional: max-width for larger screens
+      height: 'auto', // Height will adjust based on width
+      aspectRatio: 1 // Maintain square aspect ratio
+    }}>
+      <h2 style={{ textAlign: 'center' }}>{metric}</h2>
       <Pie data={data} options={options} />
     </div>
   );

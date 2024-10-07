@@ -2,6 +2,7 @@
 body {
     background-color: #f0f2f5; /* Light background for contrast */
     font-family: 'Arial', sans-serif; /* Modern font */
+    overflow: hidden; /* Prevent horizontal scrolling */
 }
 
 /* Heading Styles */
@@ -19,6 +20,7 @@ h4 {
 /* Button Styles */
 button {
     transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for button hover effects */
+    white-space: nowrap; /* Prevent text wrapping inside buttons */
 }
 
 button:hover {
@@ -29,6 +31,7 @@ button:hover {
 .card {
     border: none; /* Remove default border */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    max-width: 100%; /* Ensure cards don’t overflow */
 }
 
 .card-title {
@@ -62,6 +65,11 @@ button:hover {
     color: white !important; /* White text for active tab */
 }
 
+/* Prevent horizontal scroll caused by charts or large elements */
+canvas {
+    max-width: 100% !important; /* Ensure charts are responsive */
+}
+
 /* Responsive Styles */
 @media (max-width: 768px) {
     h2 {
@@ -74,5 +82,24 @@ button:hover {
 
     .card-title {
         font-size: 1.1rem; /* Adjust card title size for smaller screens */
+    }
+
+    .statistics-row {
+        margin-top: 10px; /* Reduce margin on smaller screens */
+    }
+
+    .card-body {
+        padding: 10px; /* Reduce padding for mobile view */
+    }
+
+    /* Stack buttons vertically on smaller screens */
+    .d-flex {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .d-flex button {
+        width: 100%; /* Full width on mobile */
+        margin-bottom: 10px; /* Spacing between buttons */
     }
 }

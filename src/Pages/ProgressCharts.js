@@ -125,7 +125,7 @@ const ProgressCharts = () => {
   };
 
   return (
-    <Container>
+    <Container fluid>
       <h2 className="text-center mt-4">Your Progress</h2>
 
       {/* Display streak information */}
@@ -139,7 +139,7 @@ const ProgressCharts = () => {
       {loading ? <div className="loader-container"><Loader /></div> : null}
 
       {/* Toggle buttons for weekly, monthly, yearly */}
-      <div className="d-flex justify-content-center mt-4">
+      <div className="d-flex justify-content-center mt-4 flex-wrap">
         <Button
           variant={activeTab === 'thisWeek' ? 'primary active-tab' : 'secondary'}
           onClick={() => setActiveTab('thisWeek')}
