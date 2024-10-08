@@ -69,10 +69,10 @@ const ExerciseModal = ({ handleClose, exercise, modalClose, resetTimer, pauseTim
             ))}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button disabled={isLoading} variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleStart}>
+          <Button disabled={isLoading} variant="primary" onClick={handleStart}>
             Start Exercise
           </Button>
         </Modal.Footer>
