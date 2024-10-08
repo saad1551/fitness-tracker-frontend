@@ -2,7 +2,7 @@
 body {
     background-color: #f0f2f5; /* Light background for contrast */
     font-family: 'Arial', sans-serif; /* Modern font */
-    overflow: hidden; /* Prevent horizontal scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 /* Heading Styles */
