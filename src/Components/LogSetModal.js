@@ -107,10 +107,10 @@ const LogSetModal = ({ minutes, seconds, componentKey, setComponentKey, resetTim
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="danger" onClick={handleCancelSet}>
+                    <Button disabled={isLoading} variant="danger" onClick={handleCancelSet}>
                         Cancel
                     </Button>
-                    <Button variant="primary" onClick={handleLogSet}>
+                    <Button disabled={isLoading} variant="primary" onClick={handleLogSet}>
                         Log Set
                     </Button>
                 </Modal.Footer>
