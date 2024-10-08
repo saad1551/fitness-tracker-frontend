@@ -82,10 +82,10 @@ const StartWorkoutModal = ({ handleClose, exercise, closeModals }) => {
                     </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button disabled={isLoading} variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleStart}>
+            <Button disabled={isLoading} variant="primary" onClick={handleStart}>
               Start Workout
             </Button>
           </Modal.Footer>
